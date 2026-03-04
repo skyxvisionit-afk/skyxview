@@ -8,81 +8,11 @@ import {
   ChevronRight, Mail, Phone, MapPin, MessageCircle,
   CheckCircle, Star, Briefcase, ArrowRight, Menu, X
 } from 'lucide-react'
+import { courses } from '@/data/courses'
 
-const services = [
-  {
-    icon: '📊',
-    title: 'Data Entry',
-    desc: '700 BDT per project + bonus opportunities',
-    detailedDesc: 'Our data entry projects involve accurately digitizing physical documents, spreadsheets, and database management. High accuracy and attention to detail are required.',
-    color: 'from-blue-500/20 to-blue-600/10',
-    thumbnail: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    icon: '📝',
-    title: 'Form Fillup',
-    desc: '150 BDT per project, flexible timing',
-    detailedDesc: 'Help businesses by filling out digital forms, surveys, and applications. A simple way to start earning with zero prior experience.',
-    color: 'from-green-500/20 to-green-600/10',
-    thumbnail: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    icon: '🎨',
-    title: 'Photo Editing',
-    desc: 'Client-rate based, creative work',
-    detailedDesc: 'Use tools like Photoshop and Lightroom to retouch photos, remove backgrounds, and enhance visual appeal for e-commerce and studios.',
-    color: 'from-purple-500/20 to-purple-600/10',
-    thumbnail: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    icon: '🎬',
-    title: 'Video Editing',
-    desc: 'Premium client rates for skilled editors',
-    detailedDesc: 'Edit short-form videos for social media, YouTube, and corporate clients. Knowledge of Premiere Pro or CapCut is a plus.',
-    color: 'from-red-500/20 to-red-600/10',
-    thumbnail: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    icon: '✏️',
-    title: 'Graphic Design',
-    desc: '100 BDT per design, unlimited projects',
-    detailedDesc: 'Create logos, banners, and social media posts. Showcase your creativity and get paid per design delivered.',
-    color: 'from-yellow-500/20 to-yellow-600/10',
-    thumbnail: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    icon: '🖊️',
-    title: 'Pen Packaging',
-    desc: '1 BDT per piece, high volume available',
-    detailedDesc: 'A physical task where you assemble and package pens according to company standards. Ideal for offline earners.',
-    color: 'from-cyan-500/20 to-cyan-600/10',
-    thumbnail: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    icon: '🧴',
-    title: 'Soap Packaging',
-    desc: '3 BDT per piece, consistent supply',
-    detailedDesc: 'Package premium soap products into their respective branded boxes. Steady work with weekly targets.',
-    color: 'from-pink-500/20 to-pink-600/10',
-    thumbnail: 'https://images.unsplash.com/photo-1600857062241-98e5dba7f214?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    icon: '📱',
-    title: 'Social Media',
-    desc: 'Manage accounts & grow brand presence',
-    detailedDesc: 'Maintain client social media accounts, schedule posts, and interact with followers to build brand authority.',
-    color: 'from-indigo-500/20 to-indigo-600/10',
-    thumbnail: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80'
-  },
-  {
-    icon: '📋',
-    title: 'Copy Paste Job',
-    desc: 'Simple tasks, beginner-friendly work',
-    detailedDesc: 'Move text from one digital medium to another. Perfect for students and beginners looking for easy earning.',
-    color: 'from-orange-500/20 to-orange-600/10',
-    thumbnail: 'https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=800&q=80'
-  },
-]
+
+// Services now imported from @/data/courses
+
 
 const stats = [
   { value: '10,000+', label: 'Active Members' },
@@ -102,9 +32,11 @@ export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
   const [contactSent, setContactSent] = useState(false)
-  const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null)
+
   const [activeFaq, setActiveFaq] = useState<number | null>(null)
   const [showCoffeeNumber, setShowCoffeeNumber] = useState(false)
+
+
 
   const faqs = [
     { q: 'How do I start earning?', a: 'Register with your WhatsApp number, activate your account with a one-time fee, and start picking tasks from 9 categories.' },
@@ -144,13 +76,8 @@ export default function HomePage() {
     }
   }, [])
 
-  const scrollSlider = (direction: 'left' | 'right') => {
-    const slider = document.getElementById('services-slider')
-    if (slider) {
-      const scrollAmount = direction === 'left' ? -350 : 350
-      slider.scrollBy({ left: scrollAmount, behavior: 'smooth' })
-    }
-  }
+
+
 
   const handleContact = (e: React.FormEvent) => {
     e.preventDefault()
@@ -247,17 +174,22 @@ export default function HomePage() {
                 Bangladesh&apos;s #1 Task-Based Referral Platform
               </div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6 max-w-4xl"
-                style={{ color: '#e2e8f0' }}>
-                Earn More With <span className="gradient-text">SkyX</span> Vision It
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6 max-w-4xl animate-fade-in-up"
+                style={{ color: '#e2e8f0', animationDelay: '0.2s' }}>
+                <span className="block mb-2 opacity-0 animate-slide-in-left" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
+                  Earn More With
+                </span>
+                <span className="gradient-text drop-shadow-[0_0_15px_rgba(14,165,233,0.3)] animate-pulse-slow">SkyX</span> Vision It
               </h1>
 
-              <p className="text-lg sm:text-xl max-w-3xl mx-auto mb-10 leading-relaxed" style={{ color: '#94a3b8' }}>
+              <p className="text-lg sm:text-xl max-w-3xl mx-auto mb-10 leading-relaxed opacity-0 animate-fade-in-up"
+                style={{ color: '#94a3b8', animationDelay: '0.8s', animationFillMode: 'forwards' }}>
                 Join thousands of members earning through task-based work and referral commissions.
                 Data entry, design, packaging jobs — all in one professional platform.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-5 justify-center mb-0">
+              <div className="flex flex-col sm:flex-row gap-5 justify-center mb-0 opacity-0 animate-fade-in-up"
+                style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
                 <Link href="/auth/register" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.125rem' }}>
                   Join Now — It&apos;s Free <ArrowRight size={20} />
                 </Link>
@@ -346,107 +278,48 @@ export default function HomePage() {
               Choose from a wide variety of tasks that match your skills and availability.
             </p>
           </div>
-          {/* Horizontal Slider container */}
-          <div className="relative group/slider">
-            {/* Navigation Arrows */}
-            <button
-              onClick={() => scrollSlider('left')}
-              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-[#0d1530] border border-[#1e3a5f] text-white opacity-0 group-hover/slider:opacity-100 transition-opacity hidden md:flex items-center justify-center hover:bg-[#1e3a5f]"
-            >
-              <ChevronRight size={20} className="rotate-180" />
-            </button>
-            <button
-              onClick={() => scrollSlider('right')}
-              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-[#0d1530] border border-[#1e3a5f] text-white opacity-0 group-hover/slider:opacity-100 transition-opacity hidden md:flex items-center justify-center hover:bg-[#1e3a5f]"
-            >
-              <ChevronRight size={20} />
-            </button>
-
-            <div
-              id="services-slider"
-              className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide no-scrollbar"
-              style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}
-            >
-              {services.map((s) => (
-                <div
-                  key={s.title}
-                  onClick={() => setSelectedService(s)}
-                  className="flex-shrink-0 w-[280px] sm:w-[320px] snap-start cursor-pointer group/card"
+          <div className="overflow-hidden relative group">
+            <div className="animate-marquee-slow flex gap-6 py-4">
+              {[...courses, ...courses].map((s, i) => (
+                <Link
+                  key={`${s.slug}-${i}`}
+                  href={`/courses/${s.slug}`}
+                  className="flex-shrink-0 w-[240px] sm:w-[300px] cursor-pointer group/card"
                 >
                   <div className="glass-card-hover h-full flex flex-col overflow-hidden transition-all duration-300 transform group-hover/card:-translate-y-2">
                     {/* Thumbnail */}
-                    <div className="h-40 overflow-hidden relative">
+                    <div className="h-32 overflow-hidden relative">
                       <img
                         src={s.thumbnail}
                         alt={s.title}
                         className="w-full h-full object-cover grayscale-[0.2] group-hover/card:grayscale-0 group-hover/card:scale-110 transition-all duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0d1530] to-transparent opacity-60" />
-                      <div className="absolute bottom-4 left-4 text-3xl">{s.icon}</div>
+                      <div className="absolute bottom-3 left-3 text-2xl">{s.icon}</div>
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 flex-1 flex flex-col"
+                    <div className="p-4 flex-1 flex flex-col"
                       style={{ background: `linear-gradient(135deg, ${s.color.split(' ')[1].replace('to-', '')}, transparent)` }}>
-                      <h3 className="font-bold text-xl mb-2" style={{ color: '#e2e8f0' }}>{s.title}</h3>
-                      <p className="text-sm line-clamp-2" style={{ color: '#94a3b8' }}>{s.desc}</p>
+                      <h3 className="font-bold text-lg mb-1" style={{ color: '#e2e8f0' }}>{s.title}</h3>
+                      <p className="text-xs line-clamp-2" style={{ color: '#94a3b8' }}>{s.desc}</p>
 
-                      <div className="mt-auto pt-4 flex items-center text-xs font-bold text-[#0ea5e9]">
-                        VIEW DETAILS <ArrowRight size={14} className="ml-1" />
+                      <div className="mt-auto pt-3 flex items-center text-[10px] font-bold text-[#0ea5e9]">
+                        VIEW COURSE <ArrowRight size={12} className="ml-1" />
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
+            {/* Gradient Fades for the marquee */}
+            <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#0a0f1e] to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#0a0f1e] to-transparent z-10 pointer-events-none" />
           </div>
 
-          {/* Modal for Service Details */}
-          {selectedService && (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-              <div
-                className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-fade-in"
-                onClick={() => setSelectedService(null)}
-              />
-              <div className="relative glass-card w-full max-w-2xl overflow-hidden animate-zoom-in">
-                <button
-                  onClick={() => setSelectedService(null)}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors z-10"
-                >
-                  <X size={20} className="text-white" />
-                </button>
-
-                <div className="grid md:grid-cols-2">
-                  <div className="h-64 md:h-auto overflow-hidden">
-                    <img
-                      src={selectedService.thumbnail}
-                      alt={selectedService.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-8 flex flex-col">
-                    <div className="text-4xl mb-4">{selectedService.icon}</div>
-                    <h3 className="text-2xl font-bold mb-2" style={{ color: '#e2e8f0' }}>{selectedService.title}</h3>
-                    <div className="inline-block px-3 py-1 rounded-lg text-xs font-bold mb-4"
-                      style={{ background: 'rgba(14,165,233,0.1)', color: '#0ea5e9' }}>
-                      {selectedService.desc}
-                    </div>
-                    <p className="text-gray-400 leading-relaxed mb-6">
-                      {selectedService.detailedDesc}
-                    </p>
-                    <Link
-                      href="/auth/register"
-                      className="btn-primary mt-auto text-center justify-center py-3"
-                    >
-                      Start This Work <Briefcase size={16} className="ml-2" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </section>
+
 
       {/* HOW IT WORKS */}
       <section id="how-it-works" className="py-24 px-4 sm:px-6 relative overflow-hidden reveal">
