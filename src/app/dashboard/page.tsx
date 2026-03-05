@@ -170,7 +170,7 @@ export default async function MemberDashboard() {
                 <div className="space-y-1">
                     <p className="text-[0.65rem] font-black uppercase tracking-[0.25em] text-slate-500">Welcome Home</p>
                     <h1 className="text-3xl font-black tracking-tight" style={{ color: '#e2e8f0' }}>
-                        {p.full_name.split(' ')[0]}<span className="gradient-text">_Vision</span> 👋
+                        {p.full_name.split(' ')[0]}<span className="gradient-text">_Welcome</span> 👋
                     </h1>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/50 border border-slate-800 shadow-inner">
