@@ -171,7 +171,7 @@ export default function HomePage() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-8"
                 style={{ background: 'rgba(14,165,233,0.15)', border: '1px solid rgba(14,165,233,0.4)', color: '#0ea5e9', backdropFilter: 'blur(8px)' }}>
                 <Star size={12} className="fill-current" />
-                Bangladesh&apos;s #1 Task-Based Referral Platform
+                Bangladesh&apos;s #1 Task-Based Earning Platform
               </div>
 
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6 max-w-4xl animate-fade-in-up"
