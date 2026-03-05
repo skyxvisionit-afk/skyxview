@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'SkyX Vision It — Task-Based Referral Business Platform',
-  description: 'SkyX Vision It is a professional task-based referral business platform offering data entry, design, packaging jobs with transparent commission system and full team hierarchy management.',
+  title: 'SkyX Vision IT — Task-Based Business & E-Learning Platform',
+  description: 'SkyX Vision is a professional task-based business platform offering data entry, design, and packaging jobs with a transparent commission system and team management',
   keywords: 'SkyX Vision It, referral business, task platform, data entry, commission, Bangladesh',
   openGraph: {
     title: 'SkyX Vision It',
