@@ -6,11 +6,12 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { UserProfile } from '@/lib/types'
 import { getRoleLabel, getRoleColor, cn } from '@/lib/utils'
+import NotificationBell from '@/components/NotificationBell'
 import {
     Network, LayoutDashboard, Users, DollarSign, LogOut,
     Menu, X, Briefcase, Settings, ChevronDown, Bell,
     UserCircle, Database, FileText, Image, Video, Palette,
-    Package, ClipboardList, Share2, Lock
+    Package, ClipboardList, Share2, Lock, Megaphone
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -61,6 +62,7 @@ const adminNav = [
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/profile', label: 'My Profile', icon: UserCircle },
     { href: '/admin/users', label: 'Manage Users', icon: Users },
+    { href: '/admin/notifications', label: 'Notifications', icon: Megaphone },
     { href: '/admin/activations', label: 'Activations', icon: UserCircle },
     { href: '/admin/withdrawals', label: 'Withdrawals', icon: DollarSign },
     { href: '/admin/commissions', label: 'Commissions', icon: DollarSign },
@@ -278,10 +280,7 @@ export default function DashboardShell({ profile, children }: { profile: UserPro
                             </div>
                         )}
                         <div className="h-8 w-px bg-slate-800 hidden sm:block"></div>
-                        <div className="relative">
-                            <Bell size={20} className="text-slate-400 hover:text-slate-200 cursor-pointer" />
-                            <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-[#0d1530]"></div>
-                        </div>
+                        <NotificationBell />
                         <div className="w-9 h-9 rounded-full ring-2 ring-emerald-500/20 flex items-center justify-center text-xs font-bold shadow-lg"
                             style={{ background: 'linear-gradient(135deg, #0ea5e9, #10b981)', color: 'white' }}>
                             {profile.full_name.charAt(0).toUpperCase()}
