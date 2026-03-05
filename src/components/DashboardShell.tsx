@@ -62,6 +62,7 @@ const adminNav = [
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/profile', label: 'My Profile', icon: UserCircle },
     { href: '/admin/users', label: 'Manage Users', icon: Users },
+    { href: '/admin/blogs', label: 'Manage Blogs', icon: FileText },
     { href: '/admin/notifications', label: 'Notifications', icon: Megaphone },
     { href: '/admin/activations', label: 'Activations', icon: UserCircle },
     { href: '/admin/withdrawals', label: 'Withdrawals', icon: DollarSign },

@@ -103,8 +103,8 @@ export default function HomePage() {
             </div>
 
             <div className="hidden md:flex items-center gap-6">
-              {['About', 'Services', 'How It Works', 'Contact'].map(item => (
-                <a key={item} href={`#${item.toLowerCase().replace(/\s/g, '-')}`}
+              {['About', 'Services', 'How It Works', 'Blog', 'Contact'].map(item => (
+                <a key={item} href={item === 'Blog' ? '/blog' : `#${item.toLowerCase().replace(/\s/g, '-')}`}
                   className="text-sm font-medium transition-colors duration-200"
                   style={{ color: '#94a3b8' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#0ea5e9')}
@@ -134,8 +134,8 @@ export default function HomePage() {
           mobileMenuOpen ? "max-h-[400px] border-b opacity-100" : "max-h-0 opacity-0"
         )} style={{ background: '#0d1530', borderColor: '#1e3a5f' }}>
           <div className="px-5 py-6 space-y-4">
-            {['About', 'Services', 'How It Works', 'Contact'].map(item => (
-              <a key={item} href={`#${item.toLowerCase().replace(/\s/g, '-')}`}
+            {['About', 'Services', 'How It Works', 'Blog', 'Contact'].map(item => (
+              <a key={item} href={item === 'Blog' ? '/blog' : `#${item.toLowerCase().replace(/\s/g, '-')}`}
                 className="flex items-center justify-between text-base font-bold py-2"
                 style={{ color: '#e2e8f0' }}
                 onClick={() => setMobileMenuOpen(false)}>

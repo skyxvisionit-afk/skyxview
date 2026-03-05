@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   keywords: 'SkyX Vision It, referral business, task platform, data entry, commission, Bangladesh',
   openGraph: {
     title: 'SkyX Vision It',
-    description: 'Professional task-based referral business platform',
+    description: 'SkyX Vision IT — Task-Based Business & E-Learning Platform',
     type: 'website',
   },
 }
