@@ -729,7 +729,7 @@ export default function HomePage() {
           </div>
 
           <div className="pt-8 border-t border-[#1e3a5f] flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm" style={{ color: '#64748b' }}>
+            <div className="text-sm" style={{ color: '#64748b' }}>
               © 2026 SkyX Vision It. All rights reserved. Developed by Arafath. {' '}
               <button
                 onClick={() => setShowCoffeeNumber(!showCoffeeNumber)}
@@ -737,7 +737,7 @@ export default function HomePage() {
               >
                 {showCoffeeNumber ? '01313961899 (Bkash)' : 'Give him a coffee ☕'}
               </button>
-            </p>
+            </div>
             <div className="flex gap-6">
               <Link href="/auth/login" className="text-xs font-semibold hover:text-[#0ea5e9] transition-colors" style={{ color: '#94a3b8' }}>ADMIN LOGIN</Link>
               <Link href="/auth/register" className="text-xs font-semibold hover:text-[#10b981] transition-colors" style={{ color: '#94a3b8' }}>REGISTER PARTNER</Link>

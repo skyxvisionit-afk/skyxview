@@ -41,17 +41,23 @@ export default function RootLayout({
                 }
 
                 function handleLoadError(error) {
-                  var message = (error && error.message) || '';
-                  var isChunkError = /ChunkLoadError|Loading chunk|failed to fetch|MIME type|ERR_ABORTED/i.test(message);
-                  
-                  if (isChunkError) {
-                    console.warn('Recovering from load error:', message);
-                    sessionStorage.setItem(reloadKey, Date.now().toString());
+                  try {
+                    var message = (error && error.message) || '';
+                    var target = error && error.target;
+                    var isScriptError = target && target.tagName === 'SCRIPT';
+                    var isChunkError = /ChunkLoadError|Loading chunk|failed to fetch|MIME type|ERR_ABORTED/i.test(message) || isScriptError;
                     
-                    // Add a cache-buster query param and reload
-                    var url = new URL(window.location.href);
-                    url.searchParams.set('reload', Date.now());
-                    window.location.replace(url.toString());
+                    if (isChunkError) {
+                      console.warn('Recovering from load error. Message:', message);
+                      sessionStorage.setItem(reloadKey, Date.now().toString());
+                      
+                      // Add a cache-buster query param and reload
+                      var url = new URL(window.location.href);
+                      url.searchParams.set('reload', Date.now());
+                      window.location.replace(url.toString());
+                    }
+                  } catch (e) {
+                    console.error('Error in recovery script:', e);
                   }
                 }
 
