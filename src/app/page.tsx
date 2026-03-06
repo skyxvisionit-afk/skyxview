@@ -143,9 +143,9 @@ export default function HomePage() {
 
         {/* Mobile menu */}
         <div className={cn(
-          "fixed inset-x-0 top-16 z-40 md:hidden transition-all duration-300 overflow-hidden",
-          mobileMenuOpen ? "max-h-[400px] border-b opacity-100" : "max-h-0 opacity-0"
-        )} style={{ background: '#0d1530', borderColor: '#1e3a5f' }}>
+          "fixed inset-x-0 top-16 z-40 md:hidden transition-all duration-300 overflow-hidden backdrop-blur-2xl shadow-2xl",
+          mobileMenuOpen ? "max-h-[500px] border-b opacity-100" : "max-h-0 opacity-0"
+        )} style={{ background: 'rgba(10,15,30,0.98)', borderBottom: '1px solid rgba(14,165,233,0.3)' }}>
           <div className="px-5 py-6 space-y-4">
             {['About', 'Services', 'How It Works', 'Blog', 'Contact'].map(item => {
               const isBlog = item === 'Blog';
@@ -169,9 +169,9 @@ export default function HomePage() {
                 </a>
               )
             })}
-            <div className="pt-4 flex flex-col gap-3">
-              <Link href="/auth/login" className="btn-outline w-full" onClick={() => setMobileMenuOpen(false)}>Login</Link>
-              <Link href="/auth/register" className="btn-primary w-full" onClick={() => setMobileMenuOpen(false)}>Register</Link>
+            <div className="pt-6 pb-2 flex flex-col gap-3 border-t border-[#1e3a5f]/50">
+              <Link href="/auth/login" className="btn-outline w-full justify-center py-3 text-sm font-bold" onClick={() => setMobileMenuOpen(false)}>Member Login</Link>
+              <Link href="/auth/register" className="btn-primary w-full justify-center py-3 text-sm font-bold shadow-lg shadow-sky-500/20" onClick={() => setMobileMenuOpen(false)}>Get Started Now</Link>
             </div>
           </div>
         </div>
@@ -202,7 +202,7 @@ export default function HomePage() {
 
               <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6 max-w-4xl animate-fade-in-up"
                 style={{ color: '#e2e8f0', animationDelay: '0.2s' }}>
-                <span className="block mb-2 opacity-0 animate-slide-in-left" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
+                <span className="block mb-2 opacity-0 animate-slide-in-left text-2xl sm:text-4xl md:text-5xl" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
                   Earn More With
                 </span>
                 <span className="gradient-text drop-shadow-[0_0_15px_rgba(14,165,233,0.3)] animate-pulse-slow">SkyX</span> Vision It
@@ -214,12 +214,12 @@ export default function HomePage() {
                 Data entry, design, packaging jobs — all in one professional platform.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-5 justify-center mb-0 opacity-0 animate-fade-in-up"
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center mb-0 opacity-0 animate-fade-in-up"
                 style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
-                <Link href="/auth/register" className="btn-primary" style={{ padding: '1rem 2.5rem', fontSize: '1.125rem' }}>
-                  Join Now — It&apos;s Free <ArrowRight size={20} />
+                <Link href="/auth/register" className="btn-primary w-full sm:w-auto justify-center" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
+                  Join Now — It&apos;s Free <ArrowRight size={18} />
                 </Link>
-                <Link href="/auth/login" className="btn-outline border-white/20 text-white hover:bg-white/10" style={{ padding: '1rem 2.5rem', fontSize: '1.125rem' }}>
+                <Link href="/auth/login" className="btn-outline w-full sm:w-auto justify-center border-white/20 text-white hover:bg-white/10" style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}>
                   Member Login
                 </Link>
               </div>
@@ -227,11 +227,11 @@ export default function HomePage() {
           </div>
 
           {/* Stats Overlaying Bottom Part */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 relative z-20">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-8 relative z-20">
             {stats.map((s) => (
-              <div key={s.label} className="glass-card p-4 text-center">
-                <div className="text-2xl font-extrabold gradient-text">{s.value}</div>
-                <div className="text-xs mt-1" style={{ color: '#94a3b8' }}>{s.label}</div>
+              <div key={s.label} className="glass-card p-4 sm:p-6 text-center border border-white/5 hover:border-sky-500/30 transition-colors">
+                <div className="text-xl sm:text-3xl font-extrabold gradient-text mb-1">{s.value}</div>
+                <div className="text-[10px] sm:text-xs uppercase tracking-wider font-bold" style={{ color: '#94a3b8' }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -272,15 +272,15 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 md:mt-0">
               {features.map((f) => (
-                <div key={f.title} className="glass-card-hover p-5">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
+                <div key={f.title} className="glass-card-hover p-5 border border-white/5 bg-white/[0.02]">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 shadow-inner"
                     style={{ background: 'rgba(14,165,233,0.1)' }}>
-                    <f.icon size={20} style={{ color: '#0ea5e9' }} />
+                    <f.icon size={24} style={{ color: '#0ea5e9' }} />
                   </div>
-                  <h3 className="font-semibold text-sm mb-2" style={{ color: '#e2e8f0' }}>{f.title}</h3>
-                  <p className="text-xs" style={{ color: '#94a3b8' }}>{f.desc}</p>
+                  <h3 className="font-bold text-base mb-2" style={{ color: '#e2e8f0' }}>{f.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: '#94a3b8' }}>{f.desc}</p>
                 </div>
               ))}
             </div>
@@ -367,7 +367,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 relative z-10">
             {[
               {
                 step: '01',
@@ -407,7 +407,7 @@ export default function HomePage() {
 
                 <div className="relative z-10 glass-card-hover p-8 h-full flex flex-col items-center text-center group-hover/step:border-[#0ea5e9]/50 transition-all duration-500">
                   {/* Step Number Badge */}
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-white bg-gradient-to-br ${item.color} shadow-lg shadow-black/20 transform group-hover/step:rotate-12 transition-transform duration-500`}>
+                  <div className={`w-20 h-20 rounded-[2rem] flex items-center justify-center mb-6 text-white bg-gradient-to-br ${item.color} shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] transform group-hover/step:rotate-12 group-hover/step:scale-110 transition-all duration-500`}>
                     {item.icon}
                   </div>
 
@@ -426,9 +426,9 @@ export default function HomePage() {
           </div>
 
           {/* Call to action below steps */}
-          <div className="mt-20 text-center">
-            <Link href="/auth/register" className="btn-primary" style={{ padding: '1rem 3rem' }}>
-              Start My Journey Now <ArrowRight size={20} />
+          <div className="mt-16 sm:mt-20 text-center relative z-10">
+            <Link href="/auth/register" className="btn-primary w-full sm:w-auto inline-flex justify-center" style={{ padding: '1.25rem 3rem', fontSize: '1.1rem' }}>
+              Start My Journey Now <ArrowRight size={20} className="ml-2" />
             </Link>
           </div>
         </div>
