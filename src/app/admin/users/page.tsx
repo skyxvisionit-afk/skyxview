@@ -54,11 +54,21 @@ export default function AdminUsersPage() {
         setSaving(true)
         setMessage({ type: '', text: '' })
 
+        // Auto-resolve leader_id from trainer if not manually set
+        let resolvedLeaderId = editForm.leader_id || null
+        if (editForm.trainer_id && !editForm.leader_id) {
+            // Check if the selected trainer belongs to a leader
+            const selectedTrainer = users.find(u => u.id === editForm.trainer_id)
+            if (selectedTrainer?.leader_id) {
+                resolvedLeaderId = selectedTrainer.leader_id
+            }
+        }
+
         const updates: any = {
             role: editForm.role,
             status: editForm.status,
             trainer_id: editForm.trainer_id || null,
-            leader_id: editForm.leader_id || null,
+            leader_id: resolvedLeaderId,
         }
 
         // If activating, create commissions
@@ -87,10 +97,10 @@ export default function AdminUsersPage() {
                 })
             }
 
-            if (editForm.leader_id && settings) {
+            if (resolvedLeaderId && settings) {
                 // Leader commission
                 await supabase.from('commissions').insert({
-                    user_id: editForm.leader_id,
+                    user_id: resolvedLeaderId,
                     source_user_id: editUser.id,
                     amount: settings.activation_fee * (settings.leader_percentage / 100),
                     type: 'LEADER',
