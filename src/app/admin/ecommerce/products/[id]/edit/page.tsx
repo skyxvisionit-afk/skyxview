@@ -47,8 +47,7 @@ export default async function AdminEditProductPage({ params }: { params: Promise
             category: category || null,
             wholesale_price,
             suggested_price,
-            stock,
-            updated_at: new Date().toISOString()
+            stock
         }).eq('id', id)
 
         if (!error) {
