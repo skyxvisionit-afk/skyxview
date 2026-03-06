@@ -11,7 +11,7 @@ import {
     Network, LayoutDashboard, Users, DollarSign, LogOut,
     Menu, X, Briefcase, Settings, ChevronDown, Bell,
     UserCircle, Database, FileText, Image, Video, Palette,
-    Package, ClipboardList, Share2, Lock, Megaphone
+    Package, ClipboardList, Share2, Lock, Megaphone, Store, Heart, ShoppingCart
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -36,6 +36,9 @@ const memberNav = [
             { href: '/dashboard/tasks/copy-paste', label: 'Copy Paste', icon: ClipboardList },
         ]
     },
+    { href: '/dashboard/shop', label: 'Reseller Shop', icon: Store },
+    { href: '/dashboard/orders', label: 'My Orders', icon: ShoppingCart },
+    { href: '/dashboard/favorites', label: 'Favorites', icon: Heart },
     { href: '/dashboard/security', label: 'Security', icon: Lock },
 ]
 
@@ -45,6 +48,9 @@ const trainerNav = [
     { href: '/trainer/members', label: 'My Members', icon: Users },
     { href: '/trainer/commissions', label: 'Commissions', icon: DollarSign },
     { href: '/trainer/withdraw', label: 'Withdraw', icon: DollarSign },
+    { href: '/trainer/shop', label: 'Reseller Shop', icon: Store },
+    { href: '/trainer/orders', label: 'My Orders', icon: ShoppingCart },
+    { href: '/trainer/favorites', label: 'Favorites', icon: Heart },
     { href: '/trainer/security', label: 'Security', icon: Lock },
 ]
 
@@ -55,6 +61,9 @@ const leaderNav = [
     { href: '/leader/members', label: 'All Members', icon: Users },
     { href: '/leader/commissions', label: 'Commissions', icon: DollarSign },
     { href: '/leader/withdraw', label: 'Withdraw', icon: DollarSign },
+    { href: '/leader/shop', label: 'Reseller Shop', icon: Store },
+    { href: '/leader/orders', label: 'My Orders', icon: ShoppingCart },
+    { href: '/leader/favorites', label: 'Favorites', icon: Heart },
     { href: '/leader/security', label: 'Security', icon: Lock },
 ]
 
@@ -67,6 +76,8 @@ const adminNav = [
     { href: '/admin/activations', label: 'Activations', icon: UserCircle },
     { href: '/admin/withdrawals', label: 'Withdrawals', icon: DollarSign },
     { href: '/admin/commissions', label: 'Commissions', icon: DollarSign },
+    { href: '/admin/ecommerce/products', label: 'Manage Products', icon: Package },
+    { href: '/admin/ecommerce/orders', label: 'Manage Orders', icon: ClipboardList },
     { href: '/admin/settings', label: 'Settings', icon: Settings },
     { href: '/admin/security', label: 'Security', icon: Lock },
 ]

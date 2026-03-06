@@ -2,8 +2,8 @@ export type UserRole = 'MEMBER' | 'TEAM_TRAINER' | 'TEAM_LEADER' | 'ADMIN'
 export type UserStatus = 'INACTIVE' | 'ACTIVE' | 'SUSPENDED' | 'BANNED'
 export type WithdrawMethod = 'BKASH' | 'NAGAD' | 'ROCKET' | 'BANK'
 export type WithdrawStatus = 'PENDING' | 'APPROVED' | 'PAID'
-export type CommissionType = 'REFERRAL' | 'TRAINER' | 'LEADER'
-
+export type CommissionType = 'REFERRAL' | 'TRAINER' | 'LEADER' | 'RESELLER'
+export type OrderStatus = 'PENDING' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED'
 export interface UserProfile {
     id: string
     role: UserRole
@@ -69,4 +69,45 @@ export interface DashboardStats {
     referral_count: number
     activated_referral_count: number
     withdrawable_balance: number
+}
+
+export interface EcommerceProduct {
+    id: string
+    title: string
+    description: string
+    image_url: string
+    gallery: string[]
+    wholesale_price: number
+    suggested_price: number
+    stock: number
+    category: string | null
+    rating: number
+    created_at: string
+}
+
+export interface EcommerceFavorite {
+    id: string
+    user_id: string
+    product_id: string
+    created_at: string
+    product?: EcommerceProduct
+}
+
+export interface EcommerceOrder {
+    id: string
+    user_id: string
+    product_id: string
+    customer_name: string
+    customer_phone: string
+    customer_address: string
+    quantity: number
+    selling_price: number
+    total_wholesale_price: number
+    total_selling_price: number
+    profit: number
+    status: OrderStatus
+    created_at: string
+    updated_at: string
+    product?: EcommerceProduct
+    user?: UserProfile
 }

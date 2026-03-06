@@ -1,20 +1,23 @@
 -- ============================================================
 -- FIX: Leader can see members under their trainers
+-- (Uses SECURITY DEFINER function to avoid RLS recursion)
 -- Run this in Supabase SQL Editor
 -- ============================================================
 
--- Drop the old management_select policy
+-- Step 1: Create a helper function that bypasses RLS
+-- This safely returns trainer IDs that belong to the current leader
+CREATE OR REPLACE FUNCTION public.get_trainer_ids_for_leader()
+RETURNS SETOF UUID AS $$
+  SELECT id FROM public.users
+  WHERE leader_id = auth.uid() AND role = 'TEAM_TRAINER';
+$$ LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public;
+
+-- Step 2: Drop the old policy and recreate with the safe function
 DROP POLICY IF EXISTS "management_select" ON public.users;
 
--- Recreate with expanded access:
--- 1. Trainers can see their own assigned members (trainer_id = auth.uid())
--- 2. Leaders can see their own assigned trainers (leader_id = auth.uid())
--- 3. Leaders can ALSO see members whose trainer_id belongs to one of their trainers
 CREATE POLICY "management_select" ON public.users
   FOR SELECT USING (
     trainer_id = auth.uid()
     OR leader_id = auth.uid()
-    OR trainer_id IN (
-      SELECT id FROM public.users WHERE leader_id = auth.uid()
-    )
+    OR trainer_id IN (SELECT * FROM public.get_trainer_ids_for_leader())
   );
