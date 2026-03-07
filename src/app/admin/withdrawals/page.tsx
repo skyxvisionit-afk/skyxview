@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { formatCurrency, formatDateTime, getStatusColor } from '@/lib/utils'
-import { DollarSign, CheckCircle, AlertCircle, Clock, CreditCard } from 'lucide-react'
+import { DollarSign, CheckCircle, AlertCircle, Clock, CreditCard, Plus, X, User, Calendar } from 'lucide-react'
 
 const STATUS_FLOW = ['PENDING', 'APPROVED', 'PAID'] as const
 
@@ -14,6 +14,16 @@ export default function AdminWithdrawalsPage() {
     const [filterStatus, setFilterStatus] = useState('')
     const [updating, setUpdating] = useState<string | null>(null)
     const [message, setMessage] = useState({ type: '', text: '' })
+    const [showManualModal, setShowManualModal] = useState(false)
+    const [users, setUsers] = useState<any[]>([])
+    const [manualForm, setManualForm] = useState({
+        user_id: '',
+        amount: '',
+        method: 'BKASH',
+        account_number: '',
+        created_at: new Date().toISOString().slice(0, 16) // Default to now (YYYY-MM-DDTHH:mm)
+    })
+    const [savingManual, setSavingManual] = useState(false)
 
     const load = useCallback(async () => {
         setLoading(true)
@@ -46,6 +56,47 @@ export default function AdminWithdrawalsPage() {
         setUpdating(null)
     }
 
+    const loadUsers = async () => {
+        const { data } = await supabase
+            .from('users')
+            .select('id, full_name, whatsapp')
+            .order('full_name')
+        setUsers(data || [])
+    }
+
+    const handleManualSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setSavingManual(true)
+        setMessage({ type: '', text: '' })
+
+        const { error } = await supabase
+            .from('withdraw_requests')
+            .insert({
+                user_id: manualForm.user_id,
+                amount: parseFloat(manualForm.amount),
+                method: manualForm.method,
+                account_number: manualForm.account_number,
+                status: 'PAID',
+                created_at: new Date(manualForm.created_at).toISOString()
+            })
+
+        if (error) {
+            setMessage({ type: 'error', text: 'Failed to add manual payment.' })
+        } else {
+            setMessage({ type: 'success', text: 'Manual payment added successfully.' })
+            setShowManualModal(false)
+            setManualForm({
+                user_id: '',
+                amount: '',
+                method: 'BKASH',
+                account_number: '',
+                created_at: new Date().toISOString().slice(0, 16)
+            })
+            load()
+        }
+        setSavingManual(false)
+    }
+
     const pending = withdrawals.filter(w => w.status === 'PENDING')
     const approved = withdrawals.filter(w => w.status === 'APPROVED')
     const paid = withdrawals.filter(w => w.status === 'PAID')
@@ -54,9 +105,20 @@ export default function AdminWithdrawalsPage() {
 
     return (
         <div className="space-y-6 animate-fade-in-up">
-            <div className="page-header">
-                <h1 className="text-2xl font-bold" style={{ color: '#e2e8f0' }}>Withdrawal Requests</h1>
-                <p className="text-sm mt-1" style={{ color: '#64748b' }}>Review and process member withdrawal requests</p>
+            <div className="page-header flex justify-between items-end">
+                <div>
+                    <h1 className="text-2xl font-bold" style={{ color: '#e2e8f0' }}>Withdrawal Requests</h1>
+                    <p className="text-sm mt-1" style={{ color: '#64748b' }}>Review and process member withdrawal requests</p>
+                </div>
+                <button
+                    className="btn-primary"
+                    onClick={() => {
+                        loadUsers()
+                        setShowManualModal(true)
+                    }}
+                >
+                    <Plus size={16} /> Add Manual Payment
+                </button>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -209,6 +271,119 @@ export default function AdminWithdrawalsPage() {
                     </div>
                 )}
             </div>
+
+            {/* Manual Payment Modal */}
+            {showManualModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.8)' }}>
+                    <div className="glass-card p-6 w-full max-w-md animate-scale-in" style={{ background: '#0d1530' }}>
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-xl font-bold flex items-center gap-2" style={{ color: '#e2e8f0' }}>
+                                <DollarSign size={20} className="text-emerald-500" />
+                                Add Manual Payment
+                            </h2>
+                            <button onClick={() => setShowManualModal(false)} style={{ color: '#64748b' }}>
+                                <X size={20} />
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleManualSubmit} className="space-y-4">
+                            <div>
+                                <label className="form-label flex items-center gap-2">
+                                    <User size={14} /> Select Member *
+                                </label>
+                                <select
+                                    className="select-field"
+                                    value={manualForm.user_id}
+                                    onChange={e => setManualForm(p => ({ ...p, user_id: e.target.value }))}
+                                    required
+                                >
+                                    <option value="">Choose a member...</option>
+                                    {users.map(u => (
+                                        <option key={u.id} value={u.id}>
+                                            {u.full_name} ({u.whatsapp})
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="form-label">Amount (৳) *</label>
+                                    <input
+                                        type="number"
+                                        className="input-field"
+                                        placeholder="0.00"
+                                        value={manualForm.amount}
+                                        onChange={e => setManualForm(p => ({ ...p, amount: e.target.value }))}
+                                        required
+                                        min="1"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="form-label">Method *</label>
+                                    <select
+                                        className="select-field"
+                                        value={manualForm.method}
+                                        onChange={e => setManualForm(p => ({ ...p, method: e.target.value }))}
+                                        required
+                                    >
+                                        <option value="BKASH">BKASH</option>
+                                        <option value="NAGAD">NAGAD</option>
+                                        <option value="ROCKET">ROCKET</option>
+                                        <option value="BANK">BANK</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="form-label">Account Number *</label>
+                                <input
+                                    type="text"
+                                    className="input-field"
+                                    placeholder="Account or phone number"
+                                    value={manualForm.account_number}
+                                    onChange={e => setManualForm(p => ({ ...p, account_number: e.target.value }))}
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="form-label flex items-center gap-2">
+                                    <Calendar size={14} /> Date & Time *
+                                </label>
+                                <input
+                                    type="datetime-local"
+                                    className="input-field"
+                                    value={manualForm.created_at}
+                                    onChange={e => setManualForm(p => ({ ...p, created_at: e.target.value }))}
+                                    required
+                                />
+                                <p className="text-[10px] mt-1 text-slate-500">
+                                    This date will be shown in the member&apos;s history.
+                                </p>
+                            </div>
+
+                            <div className="flex gap-3 pt-4">
+                                <button
+                                    type="submit"
+                                    className="btn-primary flex-1"
+                                    style={{ justifyContent: 'center' }}
+                                    disabled={savingManual}
+                                >
+                                    {savingManual ? 'Saving...' : 'Add Payment Record'}
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn-outline"
+                                    onClick={() => setShowManualModal(false)}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
