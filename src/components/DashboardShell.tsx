@@ -11,7 +11,7 @@ import {
     Network, LayoutDashboard, Users, DollarSign, LogOut,
     Menu, X, Briefcase, Settings, ChevronDown, Bell,
     UserCircle, Database, FileText, Image, Video, Palette,
-    Package, ClipboardList, Share2, Lock, Megaphone, Store, Heart, ShoppingCart
+    Package, ClipboardList, Share2, Lock, Megaphone, Store, Heart, ShoppingCart, BellDot
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -20,6 +20,7 @@ interface SidebarProps {
 
 const memberNav = [
     { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/dashboard/notices', label: 'Notice Panel', icon: BellDot },
     { href: '/dashboard/profile', label: 'My Profile', icon: UserCircle },
     { href: '/dashboard/referrals', label: 'My Referrals', icon: Users },
     { href: '/dashboard/withdraw', label: 'Withdraw', icon: DollarSign },
@@ -44,6 +45,7 @@ const memberNav = [
 
 const trainerNav = [
     { href: '/trainer', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/trainer/notices', label: 'Notice Panel', icon: BellDot },
     { href: '/trainer/profile', label: 'My Profile', icon: UserCircle },
     { href: '/trainer/members', label: 'My Members', icon: Users },
     { href: '/trainer/commissions', label: 'Commissions', icon: DollarSign },
@@ -56,6 +58,7 @@ const trainerNav = [
 
 const leaderNav = [
     { href: '/leader', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/leader/notices', label: 'Notice Panel', icon: BellDot },
     { href: '/leader/profile', label: 'My Profile', icon: UserCircle },
     { href: '/leader/trainers', label: 'My Trainers', icon: Users },
     { href: '/leader/members', label: 'All Members', icon: Users },
@@ -72,6 +75,7 @@ const adminNav = [
     { href: '/admin/profile', label: 'My Profile', icon: UserCircle },
     { href: '/admin/users', label: 'Manage Users', icon: Users },
     { href: '/admin/blogs', label: 'Manage Blogs', icon: FileText },
+    { href: '/admin/notices', label: 'Notice Panel', icon: BellDot },
     { href: '/admin/notifications', label: 'Notifications', icon: Megaphone },
     { href: '/admin/activations', label: 'Activations', icon: UserCircle },
     { href: '/admin/withdrawals', label: 'Withdrawals', icon: DollarSign },
