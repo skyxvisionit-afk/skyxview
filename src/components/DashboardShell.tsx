@@ -19,71 +19,75 @@ interface SidebarProps {
 }
 
 const memberNav = [
-    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/dashboard/notices', label: 'Notice Panel', icon: BellDot },
-    { href: '/dashboard/profile', label: 'My Profile', icon: UserCircle },
-    { href: '/dashboard/referrals', label: 'My Referrals', icon: Users },
-    { href: '/dashboard/withdraw', label: 'Withdraw', icon: DollarSign },
+    { href: '/dashboard/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/dashboard/notices/', label: 'Notice Panel', icon: BellDot },
+    { href: '/dashboard/meetings/', label: 'Live Meeting', icon: Video },
+    { href: '/dashboard/profile/', label: 'My Profile', icon: UserCircle },
+    { href: '/dashboard/referrals/', label: 'My Referrals', icon: Users },
+    { href: '/dashboard/withdraw/', label: 'Withdraw', icon: DollarSign },
     {
         label: 'Task Categories', icon: Briefcase, children: [
-            { href: '/dashboard/tasks/data-entry', label: 'Data Entry', icon: Database },
-            { href: '/dashboard/tasks/form-fillup', label: 'Form Fillup', icon: FileText },
-            { href: '/dashboard/tasks/photo-editing', label: 'Photo Editing', icon: Image },
-            { href: '/dashboard/tasks/video-editing', label: 'Video Editing', icon: Video },
-            { href: '/dashboard/tasks/graphic-design', label: 'Graphic Design', icon: Palette },
-            { href: '/dashboard/tasks/pen-packaging', label: 'Pen Packaging', icon: Package },
-            { href: '/dashboard/tasks/soap-packaging', label: 'Soap Packaging', icon: Package },
-            { href: '/dashboard/tasks/social-media', label: 'Social Media', icon: Share2 },
-            { href: '/dashboard/tasks/copy-paste', label: 'Copy Paste', icon: ClipboardList },
+            { href: '/dashboard/tasks/data-entry/', label: 'Data Entry', icon: Database },
+            { href: '/dashboard/tasks/form-fillup/', label: 'Form Fillup', icon: FileText },
+            { href: '/dashboard/tasks/photo-editing/', label: 'Photo Editing', icon: Image },
+            { href: '/dashboard/tasks/video-editing/', label: 'Video Editing', icon: Video },
+            { href: '/dashboard/tasks/graphic-design/', label: 'Graphic Design', icon: Palette },
+            { href: '/dashboard/tasks/pen-packaging/', label: 'Pen Packaging', icon: Package },
+            { href: '/dashboard/tasks/soap-packaging/', label: 'Soap Packaging', icon: Package },
+            { href: '/dashboard/tasks/social-media/', label: 'Social Media', icon: Share2 },
+            { href: '/dashboard/tasks/copy-paste/', label: 'Copy Paste', icon: ClipboardList },
         ]
     },
-    { href: '/dashboard/shop', label: 'Reseller Shop', icon: Store },
-    { href: '/dashboard/orders', label: 'My Orders', icon: ShoppingCart },
-    { href: '/dashboard/favorites', label: 'Favorites', icon: Heart },
-    { href: '/dashboard/security', label: 'Security', icon: Lock },
+    { href: '/dashboard/shop/', label: 'Reseller Shop', icon: Store },
+    { href: '/dashboard/orders/', label: 'My Orders', icon: ShoppingCart },
+    { href: '/dashboard/favorites/', label: 'Favorites', icon: Heart },
+    { href: '/dashboard/security/', label: 'Security', icon: Lock },
 ]
 
 const trainerNav = [
-    { href: '/trainer', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/trainer/notices', label: 'Notice Panel', icon: BellDot },
-    { href: '/trainer/profile', label: 'My Profile', icon: UserCircle },
-    { href: '/trainer/members', label: 'My Members', icon: Users },
-    { href: '/trainer/commissions', label: 'Commissions', icon: DollarSign },
-    { href: '/trainer/withdraw', label: 'Withdraw', icon: DollarSign },
-    { href: '/trainer/shop', label: 'Reseller Shop', icon: Store },
-    { href: '/trainer/orders', label: 'My Orders', icon: ShoppingCart },
-    { href: '/trainer/favorites', label: 'Favorites', icon: Heart },
-    { href: '/trainer/security', label: 'Security', icon: Lock },
+    { href: '/trainer/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/trainer/notices/', label: 'Notice Panel', icon: BellDot },
+    { href: '/trainer/meetings/', label: 'Meetings', icon: Video },
+    { href: '/trainer/profile/', label: 'My Profile', icon: UserCircle },
+    { href: '/trainer/members/', label: 'My Members', icon: Users },
+    { href: '/trainer/commissions/', label: 'Commissions', icon: DollarSign },
+    { href: '/trainer/withdraw/', label: 'Withdraw', icon: DollarSign },
+    { href: '/trainer/shop/', label: 'Reseller Shop', icon: Store },
+    { href: '/trainer/orders/', label: 'My Orders', icon: ShoppingCart },
+    { href: '/trainer/favorites/', label: 'Favorites', icon: Heart },
+    { href: '/trainer/security/', label: 'Security', icon: Lock },
 ]
 
 const leaderNav = [
-    { href: '/leader', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/leader/notices', label: 'Notice Panel', icon: BellDot },
-    { href: '/leader/profile', label: 'My Profile', icon: UserCircle },
-    { href: '/leader/trainers', label: 'My Trainers', icon: Users },
-    { href: '/leader/members', label: 'All Members', icon: Users },
-    { href: '/leader/commissions', label: 'Commissions', icon: DollarSign },
-    { href: '/leader/withdraw', label: 'Withdraw', icon: DollarSign },
-    { href: '/leader/shop', label: 'Reseller Shop', icon: Store },
-    { href: '/leader/orders', label: 'My Orders', icon: ShoppingCart },
-    { href: '/leader/favorites', label: 'Favorites', icon: Heart },
-    { href: '/leader/security', label: 'Security', icon: Lock },
+    { href: '/leader/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/leader/notices/', label: 'Notice Panel', icon: BellDot },
+    { href: '/leader/meetings/', label: 'Meetings', icon: Video },
+    { href: '/leader/profile/', label: 'My Profile', icon: UserCircle },
+    { href: '/leader/trainers/', label: 'My Trainers', icon: Users },
+    { href: '/leader/members/', label: 'All Members', icon: Users },
+    { href: '/leader/commissions/', label: 'Commissions', icon: DollarSign },
+    { href: '/leader/withdraw/', label: 'Withdraw', icon: DollarSign },
+    { href: '/leader/shop/', label: 'Reseller Shop', icon: Store },
+    { href: '/leader/orders/', label: 'My Orders', icon: ShoppingCart },
+    { href: '/leader/favorites/', label: 'Favorites', icon: Heart },
+    { href: '/leader/security/', label: 'Security', icon: Lock },
 ]
 
 const adminNav = [
-    { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
-    { href: '/admin/profile', label: 'My Profile', icon: UserCircle },
-    { href: '/admin/users', label: 'Manage Users', icon: Users },
-    { href: '/admin/blogs', label: 'Manage Blogs', icon: FileText },
-    { href: '/admin/notices', label: 'Notice Panel', icon: BellDot },
-    { href: '/admin/notifications', label: 'Notifications', icon: Megaphone },
-    { href: '/admin/activations', label: 'Activations', icon: UserCircle },
-    { href: '/admin/withdrawals', label: 'Withdrawals', icon: DollarSign },
-    { href: '/admin/commissions', label: 'Commissions', icon: DollarSign },
-    { href: '/admin/ecommerce/products', label: 'Manage Products', icon: Package },
-    { href: '/admin/ecommerce/orders', label: 'Manage Orders', icon: ClipboardList },
-    { href: '/admin/settings', label: 'Settings', icon: Settings },
-    { href: '/admin/security', label: 'Security', icon: Lock },
+    { href: '/admin/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/admin/profile/', label: 'My Profile', icon: UserCircle },
+    { href: '/admin/meetings/', label: 'Meetings', icon: Video },
+    { href: '/admin/users/', label: 'Manage Users', icon: Users },
+    { href: '/admin/blogs/', label: 'Manage Blogs', icon: FileText },
+    { href: '/admin/notices/', label: 'Notice Panel', icon: BellDot },
+    { href: '/admin/notifications/', label: 'Notifications', icon: Megaphone },
+    { href: '/admin/activations/', label: 'Activations', icon: UserCircle },
+    { href: '/admin/withdrawals/', label: 'Withdrawals', icon: DollarSign },
+    { href: '/admin/commissions/', label: 'Commissions', icon: DollarSign },
+    { href: '/admin/ecommerce/products/', label: 'Manage Products', icon: Package },
+    { href: '/admin/ecommerce/orders/', label: 'Manage Orders', icon: ClipboardList },
+    { href: '/admin/settings/', label: 'Settings', icon: Settings },
+    { href: '/admin/security/', label: 'Security', icon: Lock },
 ]
 
 function getNavItems(role: string) {
@@ -205,36 +209,36 @@ export default function DashboardShell({ profile, children }: { profile: UserPro
     const getBottomNavItems = () => {
         if (profile.role === 'ADMIN') {
             return [
-                { href: '/admin', label: 'Admin', icon: LayoutDashboard },
-                { href: '/admin/users', label: 'Users', icon: Users },
-                { href: '/admin/activations', label: 'Acts', icon: UserCircle },
-                { href: '/admin/withdrawals', label: 'Cash', icon: DollarSign },
+                { href: '/admin/', label: 'Admin', icon: LayoutDashboard },
+                { href: '/admin/users/', label: 'Users', icon: Users },
+                { href: '/admin/activations/', label: 'Acts', icon: UserCircle },
+                { href: '/admin/withdrawals/', label: 'Cash', icon: DollarSign },
                 { onClick: () => setMobileOpen(true), label: 'More', icon: Menu },
             ]
         }
         if (profile.role === 'TEAM_LEADER') {
             return [
-                { href: '/leader', label: 'Leader', icon: LayoutDashboard },
-                { href: '/leader/trainers', label: 'Trainers', icon: Users },
-                { href: '/leader/members', label: 'Members', icon: Users },
-                { href: '/leader/withdraw', label: 'Wallet', icon: DollarSign },
+                { href: '/leader/', label: 'Leader', icon: LayoutDashboard },
+                { href: '/leader/trainers/', label: 'Trainers', icon: Users },
+                { href: '/leader/members/', label: 'Members', icon: Users },
+                { href: '/leader/withdraw/', label: 'Wallet', icon: DollarSign },
                 { onClick: () => setMobileOpen(true), label: 'Menu', icon: Menu },
             ]
         }
         if (profile.role === 'TEAM_TRAINER') {
             return [
-                { href: '/trainer', label: 'Trainer', icon: LayoutDashboard },
-                { href: '/trainer/members', label: 'Members', icon: Users },
-                { href: '/trainer/commissions', label: 'Income', icon: DollarSign },
-                { href: '/trainer/withdraw', label: 'Wallet', icon: DollarSign },
+                { href: '/trainer/', label: 'Trainer', icon: LayoutDashboard },
+                { href: '/trainer/members/', label: 'Members', icon: Users },
+                { href: '/trainer/commissions/', label: 'Income', icon: DollarSign },
+                { href: '/trainer/withdraw/', label: 'Wallet', icon: DollarSign },
                 { onClick: () => setMobileOpen(true), label: 'Menu', icon: Menu },
             ]
         }
         return [
-            { href: '/dashboard', label: 'Home', icon: LayoutDashboard },
-            { href: '/dashboard/tasks', label: 'Tasks', icon: Briefcase },
-            { href: '/dashboard/referrals', label: 'Team', icon: Users },
-            { href: '/dashboard/withdraw', label: 'Wallet', icon: DollarSign },
+            { href: '/dashboard/', label: 'Home', icon: LayoutDashboard },
+            { href: '/dashboard/tasks/', label: 'Tasks', icon: Briefcase },
+            { href: '/dashboard/referrals/', label: 'Team', icon: Users },
+            { href: '/dashboard/withdraw/', label: 'Wallet', icon: DollarSign },
             { onClick: () => setMobileOpen(true), label: 'Menu', icon: Menu },
         ]
     }

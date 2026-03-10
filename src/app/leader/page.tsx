@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { formatCurrency, formatDate, getStatusColor, getRoleLabel } from '@/lib/utils'
 import { Users, DollarSign, TrendingUp, UserCheck, Award } from 'lucide-react'
 import Link from 'next/link'
+import LiveMeetingBanner from '@/components/LiveMeetingBanner'
 
 export default async function LeaderDashboard() {
     const supabase = await createClient()
@@ -50,6 +51,8 @@ export default async function LeaderDashboard() {
                 <h1 className="text-2xl font-bold" style={{ color: '#e2e8f0' }}>Team Leader Dashboard</h1>
                 <p className="text-sm mt-1" style={{ color: '#64748b' }}>Full visibility of your team hierarchy</p>
             </div>
+
+            <LiveMeetingBanner />
 
             {/* Stats */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">

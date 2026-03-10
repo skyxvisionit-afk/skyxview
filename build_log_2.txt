@@ -1,0 +1,393 @@
+Γû▓ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 20.7s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/55) ...
+Error: Static generation failed due to dynamic usage on /dashboard, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at q (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__78ff9083._.js:1:6785)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /leader/notices, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_86447790._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/activations, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_edda2b43._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/notices, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /leader, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at m (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__f0294ac2._.js:1:5610)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/profile, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at j (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__6bdfac93._.js:1:3734)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /leader/profile, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at j (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__2926b437._.js:1:3827)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/referrals, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at k (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__a2b438cd._.js:1:2719)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/security, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/tasks/data-entry, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/blogs, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_edda2b43._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /leader/withdraw, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_86447790._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/tasks/copy-paste, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+  Generating static pages using 7 workers (13/55) 
+Error: Static generation failed due to dynamic usage on /admin/commissions, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__e78cbfe3._.js:1:1871)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/tasks/form-fillup, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/meetings, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__cc846946._.js:1:1485)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/notices, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_edda2b43._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/notifications, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_edda2b43._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /leader/trainers, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at h (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__f8c27372._.js:1:2267)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /leader/security, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_86447790._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at q (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__005f8b6b._.js:1:6394)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/tasks/graphic-design, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/profile, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at j (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__651f15c5._.js:1:3726)
+    at stringify (<anonymous>)
+  Generating static pages using 7 workers (27/55) 
+Error: Static generation failed due to dynamic usage on /dashboard/tasks/pen-packaging, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/tasks/photo-editing, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/tasks/soap-packaging, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /trainer/commissions, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__2f540e44._.js:1:1915)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/tasks/social-media, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /trainer/meetings, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__ad3f0398._.js:1:1485)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/tasks/video-editing, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/withdraw, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_b76f9603._.js:1:2164)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/security, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_edda2b43._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /trainer, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at l (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__3374989a._.js:1:5316)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /trainer/members, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__63a219bc._.js:1:1997)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/settings, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_edda2b43._.js:1:1158)
+    at stringify (<anonymous>)
+  Generating static pages using 7 workers (41/55) 
+Error: Static generation failed due to dynamic usage on /trainer/notices, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_85a548a8._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/users, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_edda2b43._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /leader/commissions, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__2f540e44._.js:1:1915)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /trainer/profile, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at j (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__47773fca._.js:1:3778)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /leader/meetings, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__bb286d60._.js:1:1485)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /trainer/security, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_85a548a8._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /admin/withdrawals, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_edda2b43._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /leader/members, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at g (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\[root-of-the-server]__d82defae._.js:1:1997)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /trainer/withdraw, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at f (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_85a548a8._.js:1:1158)
+    at stringify (<anonymous>)
+Error: Static generation failed due to dynamic usage on /dashboard/meetings, reason: cookies
+    at w (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:1:14294)
+    at n (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:4:11054)
+    at cs (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\_6d8d40cc._.js:58:71)
+    at W (C:\Users\ARAFATH\Desktop\skyxview\.next\server\chunks\ssr\src_app_dashboard_meetings_page_tsx_108c7b03._.js:1:19246)
+    at stringify (<anonymous>)
+Γ£ô Generating static pages using 7 workers (55/55) in 2.2s
+  Finalizing page optimization ...
+
+
+Redirects
+Γöî source: /:file((?!\.well-known(?:/.*)?)(?:[^/]+/)*[^/]+\.\w+)/
+Γö£ destination: /:file
+Γöö permanent: true
+
+Γöî source: /:notfile((?!\.well-known(?:/.*)?)(?:[^/]+/)*[^/\.]+)
+Γö£ destination: /:notfile/
+Γöö permanent: true
+
+
+Headers
+Γöî source: /(.*)
+Γöö headers:
+  Γö£ X-Frame-Options: DENY
+  Γöö X-Content-Type-Options: nosniff
+  Γö£ Referrer-Policy: strict-origin-when-cross-origin
+
+Γöî source: /manifest.json
+Γöö headers:
+  Γö£ Cache-Control: public, max-age=0, must-revalidate
+
+
+Route (app)
+Γöî Γùï /
+Γö£ Γùï /_not-found
+Γö£ ╞Æ /admin
+Γö£ ╞Æ /admin/activations
+Γö£ ╞Æ /admin/blogs
+Γö£ ╞Æ /admin/commissions
+Γö£ ╞Æ /admin/ecommerce/orders
+Γö£ ╞Æ /admin/ecommerce/products
+Γö£ ╞Æ /admin/ecommerce/products/[id]/edit
+Γö£ ╞Æ /admin/ecommerce/products/new
+Γö£ ╞Æ /admin/meetings
+Γö£ ╞Æ /admin/notices
+Γö£ ╞Æ /admin/notifications
+Γö£ ╞Æ /admin/profile
+Γö£ ╞Æ /admin/security
+Γö£ ╞Æ /admin/settings
+Γö£ ╞Æ /admin/users
+Γö£ ╞Æ /admin/withdrawals
+Γö£ ╞Æ /api/debug-user
+Γö£ Γùï /auth/login
+Γö£ Γùï /auth/register
+Γö£ Γùï /blog
+Γö£ ╞Æ /blog/[id]
+Γö£ ╞Æ /courses/[slug]
+Γö£ ╞Æ /dashboard
+Γö£ ╞Æ /dashboard/favorites
+Γö£ ╞Æ /dashboard/meetings
+Γö£ ╞Æ /dashboard/notices
+Γö£ ╞Æ /dashboard/orders
+Γö£ ╞Æ /dashboard/profile
+Γö£ ╞Æ /dashboard/referrals
+Γö£ ╞Æ /dashboard/security
+Γö£ ╞Æ /dashboard/shop
+Γö£ ╞Æ /dashboard/shop/[id]
+Γö£ ╞Æ /dashboard/shop/[id]/sell
+Γö£ ╞Æ /dashboard/tasks
+Γö£ ╞Æ /dashboard/tasks/copy-paste
+Γö£ ╞Æ /dashboard/tasks/data-entry
+Γö£ ╞Æ /dashboard/tasks/form-fillup
+Γö£ ╞Æ /dashboard/tasks/graphic-design
+Γö£ ╞Æ /dashboard/tasks/pen-packaging
+Γö£ ╞Æ /dashboard/tasks/photo-editing
+Γö£ ╞Æ /dashboard/tasks/soap-packaging
+Γö£ ╞Æ /dashboard/tasks/social-media
+Γö£ ╞Æ /dashboard/tasks/video-editing
+Γö£ ╞Æ /dashboard/withdraw
+Γö£ ╞Æ /leader
+Γö£ ╞Æ /leader/commissions
+Γö£ ╞Æ /leader/favorites
+Γö£ ╞Æ /leader/meetings
+Γö£ ╞Æ /leader/members
+Γö£ ╞Æ /leader/notices
+Γö£ ╞Æ /leader/orders
+Γö£ ╞Æ /leader/profile
+Γö£ ╞Æ /leader/security
+Γö£ ╞Æ /leader/shop
+Γö£ ╞Æ /leader/shop/[id]
+Γö£ ╞Æ /leader/shop/[id]/sell
+Γö£ ╞Æ /leader/trainers
+Γö£ ╞Æ /leader/withdraw
+Γö£ ╞Æ /meeting/[id]
+Γö£ Γùï /robots.txt
+Γö£ Γùï /sitemap.xml
+Γö£ ╞Æ /trainer
+Γö£ ╞Æ /trainer/commissions
+Γö£ ╞Æ /trainer/favorites
+Γö£ ╞Æ /trainer/meetings
+Γö£ ╞Æ /trainer/members
+Γö£ ╞Æ /trainer/notices
+Γö£ ╞Æ /trainer/orders
+Γö£ ╞Æ /trainer/profile
+Γö£ ╞Æ /trainer/security
+Γö£ ╞Æ /trainer/shop
+Γö£ ╞Æ /trainer/shop/[id]
+Γö£ ╞Æ /trainer/shop/[id]/sell
+Γö£ ╞Æ /trainer/withdraw
+Γöö ╞Æ /u/[code]
+
+
+╞Æ Proxy (Middleware)
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

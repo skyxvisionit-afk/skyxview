@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { formatCurrency, formatDate } from '@/lib/utils'
 import { Users, DollarSign, TrendingUp, UserCheck, AlertCircle, Clock, Settings, BarChart2 } from 'lucide-react'
 import Link from 'next/link'
+import LiveMeetingBanner from '@/components/LiveMeetingBanner'
 
 export default async function AdminDashboard() {
     const supabase = await createClient()
@@ -51,6 +52,8 @@ export default async function AdminDashboard() {
                 </h1>
                 <p className="text-sm mt-1" style={{ color: '#64748b' }}>Full platform overview and management</p>
             </div>
+
+            <LiveMeetingBanner />
 
             {/* Stats Grid */}
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">

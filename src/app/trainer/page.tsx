@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { formatCurrency, formatDate, getStatusColor } from '@/lib/utils'
 import { Users, DollarSign, TrendingUp, UserCheck } from 'lucide-react'
 import Link from 'next/link'
+import LiveMeetingBanner from '@/components/LiveMeetingBanner'
 
 export default async function TrainerDashboard() {
     const supabase = await createClient()
@@ -42,6 +43,8 @@ export default async function TrainerDashboard() {
                 <h1 className="text-2xl font-bold" style={{ color: '#e2e8f0' }}>Trainer Dashboard</h1>
                 <p className="text-sm mt-1" style={{ color: '#64748b' }}>Manage your members and track commissions</p>
             </div>
+
+            <LiveMeetingBanner />
 
             {/* Stat Cards */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
