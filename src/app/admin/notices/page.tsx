@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import {
     Bell, Plus, Trash2, Edit2, CheckCircle, AlertCircle, Info,
     AlertTriangle, Pin, PinOff, Eye, EyeOff, Save, X,
-    Video, Clock, ExternalLink, Calendar, RefreshCw, BookOpen
+    Video, Clock, ExternalLink, Calendar, RefreshCw, BookOpen,
+    FileText, Upload, Download, Paperclip, XCircle
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -16,6 +17,7 @@ interface Notice {
     type: string
     is_pinned: boolean
     is_active: boolean
+    pdf_url: string | null
     created_at: string
     updated_at: string
 }
@@ -80,6 +82,15 @@ export default function AdminNoticesPage() {
         title: '', content: '', type: 'info', is_pinned: false
     })
 
+    // PDF Upload state
+    const [pdfFile, setPdfFile] = useState<File | null>(null)
+    const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null)
+    const [existingPdfUrl, setExistingPdfUrl] = useState<string | null>(null)
+    const [removePdf, setRemovePdf] = useState(false)
+    const [uploadProgress, setUploadProgress] = useState(0)
+    const [uploading, setUploading] = useState(false)
+    const pdfInputRef = useRef<HTMLInputElement>(null)
+
     // Class form
     const [showClassForm, setShowClassForm] = useState(false)
     const [editingClass, setEditingClass] = useState<ClassSchedule | null>(null)
@@ -106,16 +117,92 @@ export default function AdminNoticesPage() {
         setTimeout(() => setMsg({ type: '', text: '' }), 3000)
     }
 
+    // ── PDF HELPERS ──────────────────────────────────────────────
+    const handlePdfSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+        if (file.type !== 'application/pdf') {
+            showMsg('error', 'Only PDF files are allowed.')
+            return
+        }
+        if (file.size > 10 * 1024 * 1024) {
+            showMsg('error', 'PDF must be under 10MB.')
+            return
+        }
+        setPdfFile(file)
+        setPdfPreviewUrl(URL.createObjectURL(file))
+        setRemovePdf(false)
+    }
+
+    const clearPdfSelection = () => {
+        setPdfFile(null)
+        setPdfPreviewUrl(null)
+        if (pdfInputRef.current) pdfInputRef.current.value = ''
+    }
+
+    const uploadPdf = async (noticeId: string): Promise<string | null> => {
+        if (!pdfFile) return null
+        setUploading(true)
+        setUploadProgress(10)
+
+        const ext = 'pdf'
+        const fileName = `${noticeId}_${Date.now()}.${ext}`
+        const filePath = `notices/${fileName}`
+
+        setUploadProgress(40)
+
+        const { error } = await supabase.storage
+            .from('notice-pdfs')
+            .upload(filePath, pdfFile, { upsert: true, contentType: 'application/pdf' })
+
+        if (error) {
+            setUploading(false)
+            setUploadProgress(0)
+            showMsg('error', `PDF upload failed: ${error.message}`)
+            return null
+        }
+
+        setUploadProgress(80)
+
+        const { data: urlData } = supabase.storage
+            .from('notice-pdfs')
+            .getPublicUrl(filePath)
+
+        setUploadProgress(100)
+        setUploading(false)
+
+        return urlData.publicUrl
+    }
+
+    const deleteOldPdf = async (pdfUrl: string) => {
+        try {
+            // Extract file path from URL
+            const url = new URL(pdfUrl)
+            const pathParts = url.pathname.split('/notice-pdfs/')
+            if (pathParts.length > 1) {
+                await supabase.storage.from('notice-pdfs').remove([pathParts[1]])
+            }
+        } catch { /* ignore */ }
+    }
+
     // ── NOTICE ACTIONS ──────────────────────────────────────────
     const openNoticeCreate = () => {
         setEditingNotice(null)
         setNoticeForm({ title: '', content: '', type: 'info', is_pinned: false })
+        setPdfFile(null)
+        setPdfPreviewUrl(null)
+        setExistingPdfUrl(null)
+        setRemovePdf(false)
         setShowNoticeForm(true)
     }
 
     const openNoticeEdit = (n: Notice) => {
         setEditingNotice(n)
         setNoticeForm({ title: n.title, content: n.content, type: n.type, is_pinned: n.is_pinned })
+        setPdfFile(null)
+        setPdfPreviewUrl(null)
+        setExistingPdfUrl(n.pdf_url || null)
+        setRemovePdf(false)
         setShowNoticeForm(true)
     }
 
@@ -126,17 +213,51 @@ export default function AdminNoticesPage() {
         }
         setSaving(true)
         const { data: { user } } = await supabase.auth.getUser()
-        const payload = { ...noticeForm, created_by: user?.id }
+
+        let pdfUrl: string | null | undefined = undefined
 
         if (editingNotice) {
-            const { error } = await supabase.from('notices').update(noticeForm).eq('id', editingNotice.id)
+            // Editing mode
+            if (removePdf && existingPdfUrl) {
+                await deleteOldPdf(existingPdfUrl)
+                pdfUrl = null
+            } else if (pdfFile) {
+                if (existingPdfUrl) await deleteOldPdf(existingPdfUrl)
+                pdfUrl = await uploadPdf(editingNotice.id)
+                if (pdfUrl === null && pdfFile) { setSaving(false); return }
+            }
+            // undefined means don't change pdf_url
+            const payload: Record<string, unknown> = { ...noticeForm }
+            if (pdfUrl !== undefined) payload.pdf_url = pdfUrl
+
+            const { error } = await supabase.from('notices').update(payload).eq('id', editingNotice.id)
             if (error) showMsg('error', 'Failed to update notice.')
             else { showMsg('success', 'Notice updated!'); setShowNoticeForm(false); loadData() }
         } else {
-            const { error } = await supabase.from('notices').insert(payload)
-            if (error) showMsg('error', 'Failed to create notice.')
-            else { showMsg('success', 'Notice created!'); setShowNoticeForm(false); loadData() }
+            // Create mode — insert first (to get ID), then upload PDF
+            const { data: inserted, error: insertErr } = await supabase
+                .from('notices')
+                .insert({ ...noticeForm, created_by: user?.id, pdf_url: null })
+                .select()
+                .single()
+
+            if (insertErr || !inserted) {
+                showMsg('error', 'Failed to create notice.')
+                setSaving(false)
+                return
+            }
+
+            if (pdfFile) {
+                const uploadedUrl = await uploadPdf(inserted.id)
+                if (uploadedUrl) {
+                    await supabase.from('notices').update({ pdf_url: uploadedUrl }).eq('id', inserted.id)
+                }
+            }
+            showMsg('success', 'Notice created!')
+            setShowNoticeForm(false)
+            loadData()
         }
+
         setSaving(false)
     }
 
@@ -150,9 +271,10 @@ export default function AdminNoticesPage() {
         loadData()
     }
 
-    const deleteNotice = async (id: string) => {
+    const deleteNotice = async (notice: Notice) => {
         if (!confirm('Delete this notice?')) return
-        await supabase.from('notices').delete().eq('id', id)
+        if (notice.pdf_url) await deleteOldPdf(notice.pdf_url)
+        await supabase.from('notices').delete().eq('id', notice.id)
         loadData()
     }
 
@@ -321,8 +443,8 @@ export default function AdminNoticesPage() {
 
                     {/* Notice Form Modal */}
                     {showNoticeForm && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)' }}>
-                            <div className="w-full max-w-lg glass-card p-6 animate-fade-in-up">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)' }}>
+                            <div className="w-full max-w-lg glass-card p-6 animate-fade-in-up max-h-[92vh] overflow-y-auto scrollbar-hide">
                                 <div className="flex items-center justify-between mb-6">
                                     <h3 className="text-lg font-bold text-white">
                                         {editingNotice ? 'Edit Notice' : 'Create Notice'}
@@ -369,6 +491,95 @@ export default function AdminNoticesPage() {
                                             onChange={e => setNoticeForm(p => ({ ...p, content: e.target.value }))} />
                                     </div>
 
+                                    {/* PDF Upload Section */}
+                                    <div>
+                                        <label className="form-label flex items-center gap-2">
+                                            <Paperclip size={13} className="text-sky-400" />
+                                            Attach PDF (Optional)
+                                        </label>
+
+                                        {/* Existing PDF indicator */}
+                                        {existingPdfUrl && !removePdf && !pdfFile && (
+                                            <div className="flex items-center gap-3 p-3 rounded-xl mb-3"
+                                                style={{ background: 'rgba(14,165,233,0.08)', border: '1px solid rgba(14,165,233,0.2)' }}>
+                                                <FileText size={16} className="text-sky-400 flex-shrink-0" />
+                                                <span className="text-xs text-slate-300 flex-1 truncate">Current PDF attached</span>
+                                                <div className="flex items-center gap-2">
+                                                    <a href={existingPdfUrl} target="_blank" rel="noopener noreferrer"
+                                                        className="text-[11px] text-sky-400 hover:text-sky-300 font-semibold flex items-center gap-1 transition-colors">
+                                                        <ExternalLink size={11} /> View
+                                                    </a>
+                                                    <button onClick={() => setRemovePdf(true)}
+                                                        className="text-[11px] text-red-400 hover:text-red-300 font-semibold flex items-center gap-1 transition-colors">
+                                                        <XCircle size={11} /> Remove
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {removePdf && !pdfFile && (
+                                            <div className="flex items-center gap-3 p-3 rounded-xl mb-3"
+                                                style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)' }}>
+                                                <XCircle size={16} className="text-red-400 flex-shrink-0" />
+                                                <span className="text-xs text-red-300 flex-1">PDF will be removed on save</span>
+                                                <button onClick={() => setRemovePdf(false)}
+                                                    className="text-[11px] text-slate-400 hover:text-white font-semibold transition-colors">
+                                                    Undo
+                                                </button>
+                                            </div>
+                                        )}
+
+                                        {/* New file selected */}
+                                        {pdfFile && (
+                                            <div className="flex items-center gap-3 p-3 rounded-xl mb-3"
+                                                style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)' }}>
+                                                <FileText size={16} className="text-emerald-400 flex-shrink-0" />
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-xs text-white font-semibold truncate">{pdfFile.name}</p>
+                                                    <p className="text-[11px] text-slate-400">{(pdfFile.size / 1024 / 1024).toFixed(2)} MB</p>
+                                                </div>
+                                                <button onClick={clearPdfSelection}
+                                                    className="p-1 text-slate-500 hover:text-red-400 transition-colors">
+                                                    <X size={14} />
+                                                </button>
+                                            </div>
+                                        )}
+
+                                        {/* Upload progress */}
+                                        {uploading && (
+                                            <div className="mb-3">
+                                                <div className="flex items-center justify-between mb-1">
+                                                    <span className="text-xs text-slate-400">Uploading PDF...</span>
+                                                    <span className="text-xs text-sky-400 font-bold">{uploadProgress}%</span>
+                                                </div>
+                                                <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.07)' }}>
+                                                    <div className="h-full rounded-full transition-all duration-300"
+                                                        style={{ width: `${uploadProgress}%`, background: 'linear-gradient(90deg, #0ea5e9, #38bdf8)' }} />
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Drop Zone */}
+                                        <div
+                                            onClick={() => pdfInputRef.current?.click()}
+                                            className="relative cursor-pointer rounded-xl border-2 border-dashed p-6 text-center transition-all hover:border-sky-500/50 hover:bg-sky-500/5 group"
+                                            style={{ borderColor: 'rgba(255,255,255,0.1)' }}
+                                        >
+                                            <input
+                                                ref={pdfInputRef}
+                                                type="file"
+                                                accept="application/pdf"
+                                                className="hidden"
+                                                onChange={handlePdfSelect}
+                                            />
+                                            <Upload size={22} className="mx-auto mb-2 text-slate-600 group-hover:text-sky-400 transition-colors" />
+                                            <p className="text-sm font-semibold text-slate-500 group-hover:text-slate-300 transition-colors">
+                                                {pdfFile ? 'Replace PDF' : 'Click to upload PDF'}
+                                            </p>
+                                            <p className="text-xs text-slate-600 mt-1">PDF only, max 10MB</p>
+                                        </div>
+                                    </div>
+
                                     {/* Pin */}
                                     <label className="flex items-center gap-3 cursor-pointer p-3 rounded-xl hover:bg-white/5 transition-all">
                                         <div className={cn('w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all',
@@ -386,9 +597,11 @@ export default function AdminNoticesPage() {
                                         style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
                                         Cancel
                                     </button>
-                                    <button onClick={saveNotice} disabled={saving}
+                                    <button onClick={saveNotice} disabled={saving || uploading}
                                         className="flex-1 btn-accent py-2.5 justify-center">
-                                        {saving ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <><Save size={15} /> Save Notice</>}
+                                        {saving || uploading
+                                            ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            : <><Save size={15} /> Save Notice</>}
                                     </button>
                                 </div>
                             </div>
@@ -430,8 +643,20 @@ export default function AdminNoticesPage() {
                                                     {!notice.is_active && (
                                                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-700 text-slate-400">Hidden</span>
                                                     )}
+                                                    {notice.pdf_url && (
+                                                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1"
+                                                            style={{ background: 'rgba(139,92,246,0.15)', color: '#a78bfa', border: '1px solid rgba(139,92,246,0.3)' }}>
+                                                            <FileText size={9} /> PDF
+                                                        </span>
+                                                    )}
                                                 </div>
-                                                <p className="text-xs text-slate-400 leading-relaxed whitespace-pre-wrap">{notice.content}</p>
+                                                <p className="text-xs text-slate-400 leading-relaxed whitespace-pre-wrap line-clamp-2">{notice.content}</p>
+                                                {notice.pdf_url && (
+                                                    <a href={notice.pdf_url} target="_blank" rel="noopener noreferrer"
+                                                        className="inline-flex items-center gap-1.5 mt-2 text-[11px] font-semibold text-purple-400 hover:text-purple-300 transition-colors">
+                                                        <Download size={11} /> View PDF
+                                                    </a>
+                                                )}
                                                 <p className="text-[10px] text-slate-600 mt-2">{formatDateTime(notice.created_at)}</p>
                                             </div>
                                             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all flex-shrink-0">
@@ -451,7 +676,7 @@ export default function AdminNoticesPage() {
                                                     className="p-2 rounded-lg text-slate-500 hover:text-white hover:bg-white/10 transition-all" title="Edit">
                                                     <Edit2 size={14} />
                                                 </button>
-                                                <button onClick={() => deleteNotice(notice.id)}
+                                                <button onClick={() => deleteNotice(notice)}
                                                     className="p-2 rounded-lg text-slate-600 hover:text-red-500 hover:bg-red-500/10 transition-all" title="Delete">
                                                     <Trash2 size={14} />
                                                 </button>

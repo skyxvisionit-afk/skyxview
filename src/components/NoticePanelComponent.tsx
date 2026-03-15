@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import {
     Bell, Video, AlertCircle, CheckCircle, Info, AlertTriangle,
     ExternalLink, Clock, Calendar, BookOpen, Pin, RefreshCw,
-    ChevronDown, ChevronUp, Sparkles
+    ChevronDown, ChevronUp, Sparkles, FileText, Download, Eye
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -15,6 +15,7 @@ interface Notice {
     content: string
     type: string
     is_pinned: boolean
+    pdf_url: string | null
     created_at: string
 }
 
@@ -79,57 +80,146 @@ function getDuration(start: string, end: string) {
     return `${mins}m`
 }
 
+// ── PDF Preview Modal ──────────────────────────────────────────
+function PdfModal({ url, onClose }: { url: string; onClose: () => void }) {
+    // Close on Escape
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+        document.addEventListener('keydown', handler)
+        return () => document.removeEventListener('keydown', handler)
+    }, [onClose])
+
+    return (
+        <div
+            className="fixed inset-0 z-[100] flex flex-col"
+            style={{ background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(12px)' }}
+        >
+            {/* Top bar */}
+            <div className="flex items-center justify-between px-5 py-3 flex-shrink-0"
+                style={{ background: 'rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                <div className="flex items-center gap-2">
+                    <FileText size={18} className="text-purple-400" />
+                    <span className="text-sm font-bold text-white">Notice PDF</span>
+                </div>
+                <div className="flex items-center gap-3">
+                    <a
+                        href={url}
+                        download
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 active:scale-95"
+                        style={{ background: 'linear-gradient(135deg, #7c3aed, #a855f7)' }}
+                    >
+                        <Download size={14} /> Download PDF
+                    </a>
+                    <button
+                        onClick={onClose}
+                        className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+                    >
+                        ✕
+                    </button>
+                </div>
+            </div>
+
+            {/* PDF Viewer */}
+            <div className="flex-1 overflow-hidden p-4">
+                <iframe
+                    src={`${url}#toolbar=1&navpanes=0`}
+                    className="w-full h-full rounded-2xl"
+                    style={{ border: '1px solid rgba(255,255,255,0.08)', minHeight: '500px' }}
+                    title="Notice PDF"
+                />
+            </div>
+        </div>
+    )
+}
+
 function NoticeCard({ notice, index }: { notice: Notice; index: number }) {
     const [expanded, setExpanded] = useState(false)
+    const [pdfOpen, setPdfOpen] = useState(false)
     const tc = getTypeConfig(notice.type)
     const isLong = notice.content.length > 200
 
     return (
-        <div
-            className="rounded-2xl p-5 transition-all duration-300 hover:translate-y-[-1px] animate-fade-in-up"
-            style={{
-                background: tc.bg,
-                border: `1px solid ${tc.border}`,
-                boxShadow: notice.is_pinned ? tc.glow : 'none',
-                animationDelay: `${index * 80}ms`
-            }}>
-            <div className="flex items-start gap-4">
-                {/* Icon */}
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${tc.color}20`, border: `1px solid ${tc.color}40` }}>
-                    <tc.icon size={18} style={{ color: tc.color }} />
-                </div>
-
-                <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-2 flex-wrap">
-                        {notice.is_pinned && (
-                            <span className="flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full"
-                                style={{ background: 'rgba(245,158,11,0.15)', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.3)' }}>
-                                <Pin size={8} /> Pinned
-                            </span>
-                        )}
-                        <h3 className="text-sm font-bold" style={{ color: '#e2e8f0' }}>{notice.title}</h3>
+        <>
+            {pdfOpen && notice.pdf_url && (
+                <PdfModal url={notice.pdf_url} onClose={() => setPdfOpen(false)} />
+            )}
+            <div
+                className="rounded-2xl p-5 transition-all duration-300 hover:translate-y-[-1px] animate-fade-in-up"
+                style={{
+                    background: tc.bg,
+                    border: `1px solid ${tc.border}`,
+                    boxShadow: notice.is_pinned ? tc.glow : 'none',
+                    animationDelay: `${index * 80}ms`
+                }}>
+                <div className="flex items-start gap-4">
+                    {/* Icon */}
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                        style={{ background: `${tc.color}20`, border: `1px solid ${tc.color}40` }}>
+                        <tc.icon size={18} style={{ color: tc.color }} />
                     </div>
 
-                    <p className={cn('text-sm leading-relaxed whitespace-pre-wrap', !expanded && isLong && 'line-clamp-3')}
-                        style={{ color: '#94a3b8' }}>
-                        {notice.content}
-                    </p>
+                    <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-2 flex-wrap">
+                            {notice.is_pinned && (
+                                <span className="flex items-center gap-1 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full"
+                                    style={{ background: 'rgba(245,158,11,0.15)', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.3)' }}>
+                                    <Pin size={8} /> Pinned
+                                </span>
+                            )}
+                            <h3 className="text-sm font-bold" style={{ color: '#e2e8f0' }}>{notice.title}</h3>
+                            {notice.pdf_url && (
+                                <span className="flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full"
+                                    style={{ background: 'rgba(139,92,246,0.15)', color: '#a78bfa', border: '1px solid rgba(139,92,246,0.25)' }}>
+                                    <FileText size={8} /> PDF
+                                </span>
+                            )}
+                        </div>
 
-                    {isLong && (
-                        <button onClick={() => setExpanded(!expanded)}
-                            className="mt-2 flex items-center gap-1 text-xs font-semibold transition-colors hover:opacity-80"
-                            style={{ color: tc.color }}>
-                            {expanded ? <><ChevronUp size={12} /> Show less</> : <><ChevronDown size={12} /> Read more</>}
-                        </button>
-                    )}
+                        <p className={cn('text-sm leading-relaxed whitespace-pre-wrap', !expanded && isLong && 'line-clamp-3')}
+                            style={{ color: '#94a3b8' }}>
+                            {notice.content}
+                        </p>
 
-                    <p className="text-[11px] mt-2" style={{ color: '#475569' }}>
-                        {formatDateTime(notice.created_at)}
-                    </p>
+                        {isLong && (
+                            <button onClick={() => setExpanded(!expanded)}
+                                className="mt-2 flex items-center gap-1 text-xs font-semibold transition-colors hover:opacity-80"
+                                style={{ color: tc.color }}>
+                                {expanded ? <><ChevronUp size={12} /> Show less</> : <><ChevronDown size={12} /> Read more</>}
+                            </button>
+                        )}
+
+                        {/* PDF Actions */}
+                        {notice.pdf_url && (
+                            <div className="flex items-center gap-3 mt-3 flex-wrap">
+                                <button
+                                    onClick={() => setPdfOpen(true)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-xs transition-all hover:scale-105 active:scale-95"
+                                    style={{ background: 'rgba(139,92,246,0.15)', color: '#a78bfa', border: '1px solid rgba(139,92,246,0.3)' }}
+                                >
+                                    <Eye size={12} /> View PDF
+                                </button>
+                                <a
+                                    href={notice.pdf_url}
+                                    download
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold text-xs transition-all hover:scale-105 active:scale-95"
+                                    style={{ background: 'rgba(16,185,129,0.12)', color: '#34d399', border: '1px solid rgba(16,185,129,0.25)' }}
+                                >
+                                    <Download size={12} /> Download PDF
+                                </a>
+                            </div>
+                        )}
+
+                        <p className="text-[11px] mt-2" style={{ color: '#475569' }}>
+                            {formatDateTime(notice.created_at)}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
@@ -250,6 +340,7 @@ export default function NoticePanelComponent() {
     }).length
 
     const upcomingCount = classes.filter(c => now < new Date(c.start_time)).length
+    const pdfCount = notices.filter(n => n.pdf_url).length
 
     if (loading) return (
         <div className="flex items-center justify-center h-60">
@@ -287,9 +378,11 @@ export default function NoticePanelComponent() {
                 </div>
                 <div className="rounded-2xl p-4 flex flex-col gap-1 transition-all duration-300 hover:bg-purple-500/10"
                     style={{ background: 'rgba(139,92,246,0.06)', border: '1px solid rgba(139,92,246,0.15)' }}>
-                    <Sparkles size={18} style={{ color: '#a78bfa' }} />
-                    <div className="text-2xl font-black text-white">{upcomingCount}</div>
-                    <div className="text-xs text-slate-400">Upcoming</div>
+                    <div className="flex items-center gap-1.5">
+                        <Sparkles size={18} style={{ color: '#a78bfa' }} />
+                    </div>
+                    <div className="text-2xl font-black text-white">{pdfCount > 0 ? pdfCount : upcomingCount}</div>
+                    <div className="text-xs text-slate-400">{pdfCount > 0 ? 'With PDFs' : 'Upcoming'}</div>
                 </div>
             </div>
 
