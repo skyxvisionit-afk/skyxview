@@ -24,7 +24,7 @@ const memberNav = [
     { href: '/dashboard/notices/', label: 'Notice Panel', icon: BellDot },
     { href: '/dashboard/meetings/', label: 'Live Meeting', icon: Video },
     { href: '/dashboard/profile/', label: 'My Profile', icon: UserCircle },
-    { href: '/dashboard/referrals/', label: 'My Referrals', icon: Users },
+    { href: '/dashboard/referrals/', label: 'My Fields', icon: Users },
     { href: '/dashboard/withdraw/', label: 'Withdraw', icon: DollarSign },
     {
         label: 'Task Categories', icon: Briefcase, children: [
