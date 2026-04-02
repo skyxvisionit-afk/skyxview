@@ -72,10 +72,19 @@ export default async function PassbookPage() {
                                 {/* Info */}
                                 <div className="flex-1 min-w-0">
                                     <div className="flex justify-between items-start">
-                                        <div className="font-bold text-white/90 text-[15px] flex items-center gap-2">
-                                            Income from {c.source_user ? c.source_user.full_name : 'System'}
-                                            <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-sky-400 border border-slate-700 uppercase tracking-wider">
-                                                {c.type}
+                                        <div className="font-bold text-[15px] flex items-center gap-2 capitalize" style={{ color: '#e2e8f0' }}>
+                                            {c.type === 'REFERRAL' ? 'Referral Income' 
+                                            : c.type === 'TASK' ? 'Task Income' 
+                                            : c.type === 'BONUS' ? 'System Bonus'
+                                            : c.type.toLowerCase().replace('_', ' ')}
+                                            
+                                            <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${
+                                                c.type === 'REFERRAL' ? 'bg-sky-500/10 text-sky-400 border-sky-500/20' : 
+                                                c.type === 'TASK' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
+                                                c.type === 'BONUS' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
+                                                'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
+                                            }`}>
+                                                {c.type.replace('_', ' ')}
                                             </span>
                                         </div>
                                         <div className="font-black text-emerald-400">
