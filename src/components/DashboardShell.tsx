@@ -21,10 +21,10 @@ interface SidebarProps {
 
 const memberNav = [
     { href: '/dashboard/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/dashboard/profile/', label: 'My Profile', icon: UserCircle },
     { href: '/dashboard/my-room/', label: 'My Room', icon: Sparkles },
     { href: '/dashboard/notices/', label: 'Notice Panel', icon: BellDot },
     { href: '/dashboard/meetings/', label: 'Live Meeting', icon: Video },
-    { href: '/dashboard/profile/', label: 'My Profile', icon: UserCircle },
     { href: '/dashboard/referrals/', label: 'My Fields', icon: Users },
     { href: '/dashboard/passbook/', label: 'My Passbook', icon: BookOpen },
     { href: '/dashboard/withdraw/', label: 'Withdraw', icon: DollarSign },
@@ -54,9 +54,9 @@ const memberNav = [
 
 const trainerNav = [
     { href: '/trainer/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/trainer/profile/', label: 'My Profile', icon: UserCircle },
     { href: '/trainer/notices/', label: 'Notice Panel', icon: BellDot },
     { href: '/trainer/meetings/', label: 'Meetings', icon: Video },
-    { href: '/trainer/profile/', label: 'My Profile', icon: UserCircle },
     { href: '/trainer/members/', label: 'My Members', icon: Users },
     { href: '/trainer/member-book/', label: 'Member Book', icon: BookOpen },
     { href: '/trainer/forms/', label: 'Member Forms', icon: FileText },
@@ -74,9 +74,9 @@ const trainerNav = [
 
 const leaderNav = [
     { href: '/leader/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/leader/profile/', label: 'My Profile', icon: UserCircle },
     { href: '/leader/notices/', label: 'Notice Panel', icon: BellDot },
     { href: '/leader/meetings/', label: 'Meetings', icon: Video },
-    { href: '/leader/profile/', label: 'My Profile', icon: UserCircle },
     { href: '/leader/trainers/', label: 'My Trainers', icon: Users },
     { href: '/leader/members/', label: 'All Members', icon: Users },
     { href: '/leader/member-book/', label: 'Member Book', icon: BookOpen },
