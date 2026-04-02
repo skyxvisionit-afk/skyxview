@@ -42,12 +42,15 @@ export default function AdminFormsPage() {
         setIsProcessing(form.id)
         setErrorMsg('')
         try {
-            await createAccountFromForm(form.id)
+            const result = await createAccountFromForm(form.id)
+            if (result && result.error) {
+                throw new Error(result.error)
+            }
             alert('Account created successfully! It is currently inactive and awaits manual activation.')
             await fetchForms()
         } catch (err: any) {
             console.error(err)
-            setErrorMsg(err.message || 'Failed to create account.')
+            setErrorMsg(err.message || 'Failed to create account. Did you restart the server for env variables?')
         } finally {
             setIsProcessing(null)
         }
