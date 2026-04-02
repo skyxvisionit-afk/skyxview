@@ -118,18 +118,6 @@ export default function ProfileSettings({ profile }: ProfileSettingsProps) {
                     </div>
 
                     <div className="sm:text-right flex flex-col items-center sm:items-end gap-3">
-                        <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-center sm:text-right">
-                            <p className="text-[0.65rem] uppercase tracking-widest text-emerald-500 font-bold mb-1">Referral Code</p>
-                            <p className="text-xl font-mono font-bold text-white flex items-center gap-2">
-                                {profile.referral_code}
-                                <button onClick={() => {
-                                    navigator.clipboard.writeText(profile.referral_code || '');
-                                    setMessage({ type: 'success', text: 'Referral code copied!' });
-                                }} className="hover:text-emerald-400 transition-colors">
-                                    <Key size={14} />
-                                </button>
-                            </p>
-                        </div>
                     </div>
                 </div>
 
