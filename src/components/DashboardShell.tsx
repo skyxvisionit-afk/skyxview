@@ -43,6 +43,7 @@ const memberNav = [
     { href: '/dashboard/shop/', label: 'Reseller Shop', icon: Store },
     { href: '/dashboard/orders/', label: 'My Orders', icon: ShoppingCart },
     { href: '/dashboard/favorites/', label: 'Favorites', icon: Heart },
+    { href: '/dashboard/promotion/', label: 'Apply Promotion', icon: Award },
     { href: '/dashboard/security/', label: 'Security', icon: Lock },
 ]
 
