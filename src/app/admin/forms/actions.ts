@@ -27,7 +27,18 @@ export async function createAccountFromForm(formId: string) {
         }
 
         const submitter = form.users
-        const referredBy = submitter.id
+
+        // Determine referred_by using the referral code stored in the form
+        let referredBy = submitter.id // default fallback
+        if (form.referral_code) {
+            const { data: referrer } = await supabase
+                .from('users')
+                .select('id')
+                .eq('referral_code', form.referral_code)
+                .single()
+            if (referrer) referredBy = referrer.id
+        }
+
         const trainerId = submitter.role === 'TEAM_TRAINER' ? submitter.id : submitter.trainer_id
         const leaderId = submitter.role === 'TEAM_LEADER' ? submitter.id : submitter.leader_id
 

@@ -49,6 +49,7 @@ export default function NewFormFillup() {
         hasNid: false,
         nidRegion: '',
         nidNumber: '',
+        referralCode: '',
         accountName: '',
         accountNumber: '',
         password: '',
@@ -66,12 +67,18 @@ export default function NewFormFillup() {
         setError('')
 
         // Validations
+        if (!form.referralCode.trim()) return setError('Referral Code (Private Code) is mandatory.')
         if (form.password.length < 6) return setError('Password must be at least 6 characters.')
         if (form.password !== form.confirmPassword) return setError('Passwords do not match.')
         if (form.hasNid && (!form.nidRegion || !form.nidNumber)) return setError('NID Region and Number are required if Yes.')
 
-        setSubmitting(true)
+        // Validate referral code exists
         const supabase = createClient()
+        const { data: referrer, error: refErr } = await supabase.from('users').select('id, full_name, status').eq('referral_code', form.referralCode.trim().toUpperCase()).single()
+        if (refErr || !referrer) return setError('Invalid referral code. Please double-check and try again.')
+        if (referrer.status !== 'ACTIVE') return setError(`Referral code belongs to ${referrer.full_name}, but their account is currently INACTIVE.`)
+
+        setSubmitting(true)
         
         try {
             const { data: { user } } = await supabase.auth.getUser()
@@ -95,6 +102,7 @@ export default function NewFormFillup() {
                 has_nid: form.hasNid,
                 nid_region: form.nidRegion,
                 nid_number: form.nidNumber,
+                referral_code: form.referralCode.trim().toUpperCase(),
                 account_name: form.accountName,
                 account_number: form.accountNumber,
                 password: form.password,
@@ -246,6 +254,22 @@ export default function NewFormFillup() {
                     </h2>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Referral Code - Full width, highlighted */}
+                        <div className="md:col-span-2">
+                            <label className="form-label">Private Code (Referral Code) <span className="text-red-500">*</span></label>
+                            <div className="relative">
+                                <input 
+                                    required 
+                                    type="text" 
+                                    name="referralCode" 
+                                    value={form.referralCode} 
+                                    onChange={handleChange} 
+                                    className="input-field font-mono tracking-widest uppercase border-sky-500/40 bg-sky-500/5" 
+                                    placeholder="Enter the referral code you received" 
+                                />
+                            </div>
+                            <p className="text-xs text-slate-500 mt-1.5 italic">This is the private referral code of the person who invited the applicant. It is mandatory for commission tracking.</p>
+                        </div>
                         <div>
                             <label className="form-label">Account Name <span className="text-red-500">*</span></label>
                             <input required type="text" name="accountName" value={form.accountName} onChange={handleChange} className="input-field" placeholder="Username" />
