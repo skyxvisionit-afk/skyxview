@@ -40,9 +40,13 @@ const memberNav = [
             { href: '/dashboard/tasks/copy-paste/', label: 'Copy Paste', icon: ClipboardList },
         ]
     },
-    { href: '/dashboard/shop/', label: 'Reseller Shop', icon: Store },
-    { href: '/dashboard/orders/', label: 'My Orders', icon: ShoppingCart },
-    { href: '/dashboard/favorites/', label: 'Favorites', icon: Heart },
+    {
+        label: 'Reseller Shop', icon: Store, children: [
+            { href: '/dashboard/shop/', label: 'Buy Products', icon: Store },
+            { href: '/dashboard/orders/', label: 'My Orders', icon: ShoppingCart },
+            { href: '/dashboard/favorites/', label: 'Favorites', icon: Heart },
+        ]
+    },
     { href: '/dashboard/promotion/', label: 'Apply Promotion', icon: Award },
     { href: '/dashboard/security/', label: 'Security', icon: Lock },
 ]
@@ -57,9 +61,13 @@ const trainerNav = [
     { href: '/trainer/forms/', label: 'Member Forms', icon: FileText },
     { href: '/trainer/commissions/', label: 'My Fields', icon: DollarSign },
     { href: '/trainer/withdraw/', label: 'Withdraw', icon: DollarSign },
-    { href: '/trainer/shop/', label: 'Reseller Shop', icon: Store },
-    { href: '/trainer/orders/', label: 'My Orders', icon: ShoppingCart },
-    { href: '/trainer/favorites/', label: 'Favorites', icon: Heart },
+    {
+        label: 'Reseller Shop', icon: Store, children: [
+            { href: '/trainer/shop/', label: 'Buy Products', icon: Store },
+            { href: '/trainer/orders/', label: 'My Orders', icon: ShoppingCart },
+            { href: '/trainer/favorites/', label: 'Favorites', icon: Heart },
+        ]
+    },
     { href: '/trainer/security/', label: 'Security', icon: Lock },
 ]
 
@@ -74,9 +82,13 @@ const leaderNav = [
     { href: '/leader/forms/', label: 'Member Forms', icon: FileText },
     { href: '/leader/commissions/', label: 'My Fields', icon: DollarSign },
     { href: '/leader/withdraw/', label: 'Withdraw', icon: DollarSign },
-    { href: '/leader/shop/', label: 'Reseller Shop', icon: Store },
-    { href: '/leader/orders/', label: 'My Orders', icon: ShoppingCart },
-    { href: '/leader/favorites/', label: 'Favorites', icon: Heart },
+    {
+        label: 'Reseller Shop', icon: Store, children: [
+            { href: '/leader/shop/', label: 'Buy Products', icon: Store },
+            { href: '/leader/orders/', label: 'My Orders', icon: ShoppingCart },
+            { href: '/leader/favorites/', label: 'Favorites', icon: Heart },
+        ]
+    },
     { href: '/leader/security/', label: 'Security', icon: Lock },
 ]
 
