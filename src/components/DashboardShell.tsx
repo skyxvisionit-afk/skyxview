@@ -12,7 +12,7 @@ import {
     Network, LayoutDashboard, Users, DollarSign, LogOut,
     Menu, X, Briefcase, Settings, ChevronDown, Bell,
     UserCircle, Database, FileText, Image, Video, Palette,
-    Package, ClipboardList, Share2, Lock, Megaphone, Store, Heart, ShoppingCart, BellDot, Award
+    Package, ClipboardList, Share2, Lock, Megaphone, Store, Heart, ShoppingCart, BellDot, Award, BookOpen
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -51,6 +51,7 @@ const trainerNav = [
     { href: '/trainer/meetings/', label: 'Meetings', icon: Video },
     { href: '/trainer/profile/', label: 'My Profile', icon: UserCircle },
     { href: '/trainer/members/', label: 'My Members', icon: Users },
+    { href: '/trainer/member-book/', label: 'Member Book', icon: BookOpen },
     { href: '/trainer/forms/', label: 'Member Forms', icon: FileText },
     { href: '/trainer/commissions/', label: 'Commissions', icon: DollarSign },
     { href: '/trainer/withdraw/', label: 'Withdraw', icon: DollarSign },
@@ -67,6 +68,7 @@ const leaderNav = [
     { href: '/leader/profile/', label: 'My Profile', icon: UserCircle },
     { href: '/leader/trainers/', label: 'My Trainers', icon: Users },
     { href: '/leader/members/', label: 'All Members', icon: Users },
+    { href: '/leader/member-book/', label: 'Member Book', icon: BookOpen },
     { href: '/leader/forms/', label: 'Member Forms', icon: FileText },
     { href: '/leader/commissions/', label: 'Commissions', icon: DollarSign },
     { href: '/leader/withdraw/', label: 'Withdraw', icon: DollarSign },
