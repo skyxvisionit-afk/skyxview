@@ -1,35 +1,61 @@
-import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
-import { Home, Target, Gift, Info, Star, Activity, Sparkles, TrendingUp } from 'lucide-react'
+'use client'
 
-export default async function MyRoomPage() {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) redirect('/auth/login')
+import { useState, useEffect } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { Target, Gift, Info, Star, Activity, Sparkles, TrendingUp, CheckCircle2 } from 'lucide-react'
 
-    // Fetch room data
-    let { data: room, error } = await supabase
-        .from('user_rooms')
-        .select('*')
-        .eq('user_id', user.id)
-        .single()
+export default function MyRoomPage() {
+    const supabase = createClient()
+    const [room, setRoom] = useState<any>(null)
+    const [loading, setLoading] = useState(true)
+    const [claiming, setClaiming] = useState(false)
+    const [isClaimed, setIsClaimed] = useState(false)
 
-    // Create room if it doesn't exist
-    if (!room && !error) {
-        const { data: newRoom } = await supabase
+    useEffect(() => {
+        loadRoomData()
+    }, [])
+
+    const loadRoomData = async () => {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) return
+
+        let { data, error } = await supabase
             .from('user_rooms')
-            .insert({ user_id: user.id })
-            .select()
+            .select('*')
+            .eq('user_id', user.id)
             .single()
-        room = newRoom
-    } else if (error && error.code === 'PGRST116') {
-        // Room not found, create it
-        const { data: newRoom } = await supabase
-            .from('user_rooms')
-            .insert({ user_id: user.id })
-            .select()
-            .single()
-        room = newRoom
+
+        if (error && error.code === 'PGRST116') {
+            const { data: newRoom } = await supabase
+                .from('user_rooms')
+                .insert({ user_id: user.id })
+                .select()
+                .single()
+            setRoom(newRoom)
+        } else {
+            setRoom(data)
+        }
+        setLoading(false)
+    }
+
+    const handleClaim = () => {
+        setClaiming(true)
+        // Simulate a claim request to admin
+        setTimeout(() => {
+            setClaiming(false)
+            setIsClaimed(true)
+        }, 1500)
+    }
+
+    if (loading) {
+        return (
+            <div className="h-[60vh] flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="w-12 h-12 border-4 border-sky-500/20 border-t-sky-500 rounded-full animate-spin"></div>
+                    <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Entering your room...</p>
+                </div>
+            </div>
+        )
     }
 
     const progress = room?.target_progress || 0
@@ -61,11 +87,11 @@ export default async function MyRoomPage() {
                         <div className="relative w-32 h-32 flex items-center justify-center">
                             <svg className="w-full h-full -rotate-90 transform">
                                 <circle cx="64" cy="64" r="58" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-slate-800" />
-                                <circle cx="64" cy="64" r="58" stroke="currentColor" strokeWidth="8" fill="transparent" strokeDasharray={364.4} strokeDashoffset={364.4 - (364.4 * progress) / 100} className="text-sky-500 transition-all duration-1000 ease-out" />
+                                <circle cx="64" cy="64" r="58" stroke="currentColor" strokeWidth="8" fill="transparent" strokeDasharray={364.4} strokeDashoffset={364.4 - (364.4 * progress) / 100} className="text-sky-500 transition-all duration-[1500ms] ease-out" />
                             </svg>
                             <div className="absolute flex flex-col items-center justify-center">
-                                <span className="text-3xl font-black text-white leading-none">{progress}%</span>
-                                <span className="text-[10px] font-bold text-slate-500 uppercase">Target</span>
+                                <span className="text-3xl font-black text-white leading-none font-mono">{progress}%</span>
+                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Target</span>
                             </div>
                         </div>
                         <span className="text-xs font-bold text-sky-400 mt-2 uppercase tracking-widest">Active Progress</span>
@@ -106,7 +132,7 @@ export default async function MyRoomPage() {
                         <div className="w-full h-3 bg-slate-800 rounded-full overflow-hidden border border-white/5">
                             <div className="h-full bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-500 shadow-[0_0_15px_rgba(99,102,241,0.5)] rounded-full transition-all duration-1000" style={{ width: `${progress}%` }}></div>
                         </div>
-                        <p className="text-[10px] text-slate-600 font-bold uppercase tracking-tighter text-right">Updated manually by SkyX Management</p>
+                        <p className="text-[10px] text-slate-600 font-bold uppercase tracking-tighter text-right">Last sync: Just now</p>
                     </div>
                 </div>
 
@@ -127,15 +153,41 @@ export default async function MyRoomPage() {
                     </div>
 
                     <div className="relative z-10 bg-purple-500/10 border border-purple-500/20 rounded-2xl p-6 mb-6 flex-1 flex flex-col items-center justify-center text-center">
-                        <div className="text-2xl font-black text-purple-400 mb-2">LIMITED DEAL</div>
+                        <div className="text-2xl font-black text-purple-400 mb-2 font-mono tracking-tighter">LIMITED DEAL</div>
                         <p className="text-slate-200 font-bold leading-relaxed">
                             {room?.special_offer || 'Unlock a new badge to receive premium rewards and special bonuses!'}
                         </p>
                     </div>
 
-                    <button className="relative z-10 w-full py-4 bg-purple-500 hover:bg-purple-600 text-slate-950 font-black rounded-xl text-sm uppercase tracking-widest transition-all shadow-lg hover:shadow-purple-500/20 active:scale-95">
-                        Claim This Offer
+                    <button 
+                        onClick={handleClaim}
+                        disabled={claiming || isClaimed}
+                        className={`relative z-10 w-full py-4 font-black rounded-xl text-sm uppercase tracking-widest transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 ${
+                            isClaimed 
+                            ? 'bg-emerald-500 text-slate-950 cursor-default' 
+                            : 'bg-purple-500 hover:bg-purple-600 text-slate-950 hover:shadow-purple-500/20'
+                        }`}
+                    >
+                        {claiming ? (
+                            <>
+                                <div className="w-4 h-4 border-2 border-slate-950/20 border-t-slate-950 rounded-full animate-spin"></div>
+                                Claiming...
+                            </>
+                        ) : isClaimed ? (
+                            <>
+                                <CheckCircle2 size={18} />
+                                Application Sent
+                            </>
+                        ) : (
+                            'Claim This Offer'
+                        )}
                     </button>
+                    
+                    {isClaimed && (
+                        <p className="text-[10px] text-emerald-400 mt-4 text-center font-bold uppercase tracking-tight relative z-10">
+                            Offer claim request sent to admin for verification.
+                        </p>
+                    )}
                     
                     <p className="relative z-10 text-[9px] text-slate-500 mt-4 text-center font-bold uppercase tracking-widest leading-none">Terms and conditions apply as per SkyX policy</p>
                 </div>
