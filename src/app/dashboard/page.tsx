@@ -70,9 +70,7 @@ async function getDashboardStats(userId: string) {
     }
 }
 
-import ReferralBanner from '@/components/ReferralBanner'
 import LiveMeetingBanner from '@/components/LiveMeetingBanner'
-import DashboardHero from '@/components/DashboardHero'
 
 export default async function MemberDashboard() {
     const supabase = await createClient()
@@ -190,14 +188,8 @@ export default async function MemberDashboard() {
                 </div>
             </div>
 
-            {/* Dashboard Hero Banner and Tasks */}
-            <DashboardHero />
-
             {/* Live Meeting Notification */}
             <LiveMeetingBanner />
-
-            {/* Referral Code Banner */}
-            <ReferralBanner code={p.referral_code || ''} />
 
             {/* Main Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

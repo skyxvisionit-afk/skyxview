@@ -12,7 +12,7 @@ import {
     Network, LayoutDashboard, Users, DollarSign, LogOut,
     Menu, X, Briefcase, Settings, ChevronDown, Bell,
     UserCircle, Database, FileText, Image, Video, Palette,
-    Package, ClipboardList, Share2, Lock, Megaphone, Store, Heart, ShoppingCart, BellDot, Award, BookOpen, ShieldCheck, Sparkles
+    Package, ClipboardList, Share2, Lock, Megaphone, Store, Heart, ShoppingCart, BellDot, Award, BookOpen, ShieldCheck, Sparkles, Upload
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -22,19 +22,12 @@ interface SidebarProps {
 const memberNav = [
     { href: '/dashboard/', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/dashboard/my-room/', label: 'My Room', icon: Sparkles },
-    {
-        label: 'Updates', icon: BellDot, children: [
-            { href: '/dashboard/notices/', label: 'Notice Panel', icon: BellDot },
-            { href: '/dashboard/meetings/', label: 'Live Meeting', icon: Video },
-        ]
-    },
-    {
-        label: 'My Wallet', icon: DollarSign, children: [
-            { href: '/dashboard/referrals/', label: 'My Fields', icon: Users },
-            { href: '/dashboard/passbook/', label: 'My Passbook', icon: BookOpen },
-            { href: '/dashboard/withdraw/', label: 'Withdraw', icon: DollarSign },
-        ]
-    },
+    { href: '/dashboard/notices/', label: 'Notice Panel', icon: BellDot },
+    { href: '/dashboard/meetings/', label: 'Live Meeting', icon: Video },
+    { href: '/dashboard/profile/', label: 'My Profile', icon: UserCircle },
+    { href: '/dashboard/referrals/', label: 'My Fields', icon: Users },
+    { href: '/dashboard/passbook/', label: 'My Passbook', icon: BookOpen },
+    { href: '/dashboard/withdraw/', label: 'Withdraw', icon: DollarSign },
     {
         label: 'Task Center', icon: Briefcase, children: [
             { href: '/dashboard/tasks/data-entry/', label: 'Data Entry', icon: Database },
@@ -56,35 +49,19 @@ const memberNav = [
         ]
     },
     { href: '/dashboard/promotion/', label: 'Apply Promotion', icon: Award },
-    {
-        label: 'Account', icon: UserCircle, children: [
-            { href: '/dashboard/profile/', label: 'My Profile', icon: UserCircle },
-            { href: '/dashboard/security/', label: 'Security', icon: Lock },
-        ]
-    },
+    { href: '/dashboard/security/', label: 'Security', icon: Lock },
 ]
 
 const trainerNav = [
     { href: '/trainer/', label: 'Dashboard', icon: LayoutDashboard },
-    {
-        label: 'Updates', icon: BellDot, children: [
-            { href: '/trainer/notices/', label: 'Notice Panel', icon: BellDot },
-            { href: '/trainer/meetings/', label: 'Meetings', icon: Video },
-        ]
-    },
-    {
-        label: 'Team Management', icon: Users, children: [
-            { href: '/trainer/members/', label: 'My Members', icon: Users },
-            { href: '/trainer/member-book/', label: 'Member Book', icon: BookOpen },
-            { href: '/trainer/forms/', label: 'Member Forms', icon: FileText },
-        ]
-    },
-    {
-        label: 'Financials', icon: DollarSign, children: [
-            { href: '/trainer/commissions/', label: 'My Fields', icon: DollarSign },
-            { href: '/trainer/withdraw/', label: 'Withdraw', icon: DollarSign },
-        ]
-    },
+    { href: '/trainer/notices/', label: 'Notice Panel', icon: BellDot },
+    { href: '/trainer/meetings/', label: 'Meetings', icon: Video },
+    { href: '/trainer/profile/', label: 'My Profile', icon: UserCircle },
+    { href: '/trainer/members/', label: 'My Members', icon: Users },
+    { href: '/trainer/member-book/', label: 'Member Book', icon: BookOpen },
+    { href: '/trainer/forms/', label: 'Member Forms', icon: FileText },
+    { href: '/trainer/commissions/', label: 'My Fields', icon: DollarSign },
+    { href: '/trainer/withdraw/', label: 'Withdraw', icon: DollarSign },
     {
         label: 'Reseller Shop', icon: Store, children: [
             { href: '/trainer/shop/', label: 'Buy Products', icon: Store },
@@ -92,36 +69,20 @@ const trainerNav = [
             { href: '/trainer/favorites/', label: 'Favorites', icon: Heart },
         ]
     },
-    {
-        label: 'Account', icon: UserCircle, children: [
-            { href: '/trainer/profile/', label: 'My Profile', icon: UserCircle },
-            { href: '/trainer/security/', label: 'Security', icon: Lock },
-        ]
-    },
+    { href: '/trainer/security/', label: 'Security', icon: Lock },
 ]
 
 const leaderNav = [
     { href: '/leader/', label: 'Dashboard', icon: LayoutDashboard },
-    {
-        label: 'Updates', icon: BellDot, children: [
-            { href: '/leader/notices/', label: 'Notice Panel', icon: BellDot },
-            { href: '/leader/meetings/', label: 'Meetings', icon: Video },
-        ]
-    },
-    {
-        label: 'Team Management', icon: Users, children: [
-            { href: '/leader/trainers/', label: 'My Trainers', icon: Users },
-            { href: '/leader/members/', label: 'All Members', icon: Users },
-            { href: '/leader/member-book/', label: 'Member Book', icon: BookOpen },
-            { href: '/leader/forms/', label: 'Member Forms', icon: FileText },
-        ]
-    },
-    {
-        label: 'Financials', icon: DollarSign, children: [
-            { href: '/leader/commissions/', label: 'My Fields', icon: DollarSign },
-            { href: '/leader/withdraw/', label: 'Withdraw', icon: DollarSign },
-        ]
-    },
+    { href: '/leader/notices/', label: 'Notice Panel', icon: BellDot },
+    { href: '/leader/meetings/', label: 'Meetings', icon: Video },
+    { href: '/leader/profile/', label: 'My Profile', icon: UserCircle },
+    { href: '/leader/trainers/', label: 'My Trainers', icon: Users },
+    { href: '/leader/members/', label: 'All Members', icon: Users },
+    { href: '/leader/member-book/', label: 'Member Book', icon: BookOpen },
+    { href: '/leader/forms/', label: 'Member Forms', icon: FileText },
+    { href: '/leader/commissions/', label: 'My Fields', icon: DollarSign },
+    { href: '/leader/withdraw/', label: 'Withdraw', icon: DollarSign },
     {
         label: 'Reseller Shop', icon: Store, children: [
             { href: '/leader/shop/', label: 'Buy Products', icon: Store },
@@ -129,54 +90,34 @@ const leaderNav = [
             { href: '/leader/favorites/', label: 'Favorites', icon: Heart },
         ]
     },
-    {
-        label: 'Account', icon: UserCircle, children: [
-            { href: '/leader/profile/', label: 'My Profile', icon: UserCircle },
-            { href: '/leader/security/', label: 'Security', icon: Lock },
-        ]
-    },
+    { href: '/leader/security/', label: 'Security', icon: Lock },
 ]
 
 const adminNav = [
     { href: '/admin/', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/admin/profile/', label: 'My Profile', icon: UserCircle },
+    { href: '/admin/meetings/', label: 'Meetings', icon: Video },
+    { href: '/admin/teams/', label: 'Team Mapping', icon: Network },
+    { href: '/admin/users/', label: 'Manage Users', icon: Users },
+    { href: '/admin/room-control/', label: 'Room Control', icon: Sparkles },
+    { href: '/admin/forms/', label: 'Form Fillups', icon: FileText },
+    { href: '/admin/work-submissions/', label: 'Work Submissions', icon: Upload },
+    { href: '/admin/blogs/', label: 'Manage Blogs', icon: FileText },
+    { href: '/admin/badges/', label: 'Manage Badges', icon: Award },
+    { href: '/admin/notices/', label: 'Notice Panel', icon: BellDot },
+    { href: '/admin/notifications/', label: 'Notifications', icon: Megaphone },
+    { href: '/admin/activations/', label: 'Activations', icon: UserCircle },
+    { href: '/admin/withdrawals/', label: 'Withdrawals', icon: DollarSign },
+    { href: '/admin/commissions/', label: 'Commissions', icon: DollarSign },
+    { href: '/admin/passbook/', label: 'Manage Passbook', icon: BookOpen },
     {
-        label: 'System Management', icon: ShieldCheck, children: [
-            { href: '/admin/teams/', label: 'Team Mapping', icon: Network },
-            { href: '/admin/users/', label: 'Manage Users', icon: Users },
-            { href: '/admin/room-control/', label: 'Room Control', icon: Sparkles },
-            { href: '/admin/forms/', label: 'Form Fillups', icon: FileText },
-            { href: '/admin/badges/', label: 'Manage Badges', icon: Award },
-        ]
-    },
-    {
-        label: 'Communication', icon: Megaphone, children: [
-            { href: '/admin/meetings/', label: 'Meetings', icon: Video },
-            { href: '/admin/notices/', label: 'Notice Panel', icon: BellDot },
-            { href: '/admin/notifications/', label: 'Notifications', icon: Megaphone },
-            { href: '/admin/blogs/', label: 'Manage Blogs', icon: FileText },
-        ]
-    },
-    {
-        label: 'Finance Flow', icon: DollarSign, children: [
-            { href: '/admin/activations/', label: 'Activations', icon: UserCircle },
-            { href: '/admin/withdrawals/', label: 'Withdrawals', icon: DollarSign },
-            { href: '/admin/commissions/', label: 'Commissions', icon: DollarSign },
-            { href: '/admin/passbook/', label: 'Manage Passbook', icon: BookOpen },
-        ]
-    },
-    {
-        label: 'E-commerce', icon: Package, children: [
+        label: 'Ecommerce', icon: Package, children: [
             { href: '/admin/ecommerce/products/', label: 'Manage Products', icon: Package },
             { href: '/admin/ecommerce/orders/', label: 'Manage Orders', icon: ClipboardList },
         ]
     },
-    {
-        label: 'Settings', icon: Settings, children: [
-            { href: '/admin/profile/', label: 'My Profile', icon: UserCircle },
-            { href: '/admin/settings/', label: 'Global Settings', icon: Settings },
-            { href: '/admin/security/', label: 'Security', icon: Lock },
-        ]
-    },
+    { href: '/admin/settings/', label: 'Global Settings', icon: Settings },
+    { href: '/admin/security/', label: 'Security', icon: Lock },
 ]
 
 function getNavItems(role: string) {
@@ -342,7 +283,7 @@ export default function DashboardShell({ profile, children }: { profile: UserPro
             { href: '/dashboard/', label: 'Home', icon: LayoutDashboard },
             { href: '/dashboard/tasks/', label: 'Tasks', icon: Briefcase },
             { href: '/dashboard/referrals/', label: 'Team', icon: Users },
-            { href: '/dashboard/withdraw/', label: 'Wallet', icon: DollarSign },
+            { href: '/dashboard/submit-work/', label: 'Submit', icon: Upload },
             { onClick: () => setMobileOpen(true), label: 'Menu', icon: Menu },
         ]
     }

@@ -5,7 +5,6 @@ import { Users, DollarSign, TrendingUp, UserCheck } from 'lucide-react'
 import { evaluateAutoBadge } from '@/lib/badgeUtils'
 import Link from 'next/link'
 import LiveMeetingBanner from '@/components/LiveMeetingBanner'
-import DashboardHero from '@/components/DashboardHero'
 
 export default async function TrainerDashboard() {
     const supabase = await createClient()
@@ -67,9 +66,6 @@ export default async function TrainerDashboard() {
                 <h1 className="text-2xl font-bold" style={{ color: '#e2e8f0' }}>Trainer Dashboard</h1>
                 <p className="text-sm mt-1" style={{ color: '#64748b' }}>Manage your members and track commissions</p>
             </div>
-
-            {/* Dashboard Hero Banner and Tasks */}
-            <DashboardHero />
 
             <LiveMeetingBanner />
 

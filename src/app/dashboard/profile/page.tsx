@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import ProfileSettings from '@/components/ProfileSettings'
+import ReferralBanner from '@/components/ReferralBanner'
 import type { UserProfile } from '@/lib/types'
 import { Users, Award, DollarSign, TrendingUp } from 'lucide-react'
 
@@ -55,6 +56,9 @@ export default async function MemberProfilePage() {
                 </h1>
                 <p className="text-sm mt-1" style={{ color: '#64748b' }}>Manage your identity and view your performance.</p>
             </div>
+
+            {/* Referral Code Banner */}
+            <ReferralBanner code={(profile as UserProfile).referral_code || ''} />
 
             {/* Role-Specific Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
