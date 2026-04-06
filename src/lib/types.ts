@@ -2,7 +2,7 @@ export type UserRole = 'MEMBER' | 'TEAM_TRAINER' | 'TEAM_LEADER' | 'ADMIN'
 export type UserStatus = 'INACTIVE' | 'ACTIVE' | 'SUSPENDED' | 'BANNED'
 export type WithdrawMethod = 'BKASH' | 'NAGAD' | 'ROCKET' | 'BANK'
 export type WithdrawStatus = 'PENDING' | 'APPROVED' | 'PAID'
-export type CommissionType = 'REFERRAL' | 'TRAINER' | 'LEADER' | 'RESELLER'
+export type CommissionType = 'REFERRAL' | 'TRAINER' | 'LEADER' | 'RESELLER' | 'BONUS' | 'TASK' | 'PHOTO_EDITING' | 'VIDEO_EDITING' | 'GRAPHIC_DESIGN' | 'MANUAL' | 'PEN_PACKAGING' | 'SOAP_PACKAGING' | 'SOCIAL_MEDIA' | 'FORM_FILLUP' | 'PRODUCT_SELL'
 export type OrderStatus = 'PENDING' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED'
 export interface UserProfile {
     id: string

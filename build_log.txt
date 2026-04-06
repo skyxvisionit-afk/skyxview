@@ -1,16 +1,25 @@
+
+> skyxview@0.1.0 build
+> next build
+
 Γû▓ Next.js 16.1.6 (Turbopack)
 - Environments: .env.local
 
 ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
+Γ£ô Compiled successfully in 21.2s
+  Running TypeScript ...
+Failed to compile.
 
-> Build error occurred
-Error: Turbopack build failed with 1 errors:
-./src/app/meeting/[id]
-Invalid import
-'client-only' cannot be imported from a Server Component module. It should only be used from a Client Component.
-The error was caused by using 'styled-jsx'. It only works in a Client Component but none of its parents are marked with "use client", so they're Server Components by default.
+./src/app/dashboard/submit-work/page.tsx:168:59
+Type error: Type '{ ringColor: string; borderColor: string; background: string; } | {}' is not assignable to type 'CSSProperties | undefined'.
+  Object literal may only specify known properties, and 'ringColor' does not exist in type 'Properties<string | number, string & {}>'.
 
-
-
-    at ignore-listed frames
+  166 |                                 <button key={type.value} onClick={() => setSelectedWork(type.value)}
+  167 |                                     className={`glass-card p-5 text-left transition-all duration-300 group relative overflow-hidden ${isSelected ? 'ring-2' : 'hover:border-sky-500/30'}`}
+> 168 |                                     style={isSelected ? { ringColor: type.color, borderColor: type.color + '60', background: type.color + '10' } : {}}>
+      |                                                           ^
+  169 |                                     {isSelected && (
+  170 |                                         <div className="absolute top-3 right-3 w-5 h-5 rounded-full flex items-center justify-center"
+  171 |                                             style={{ background: type.color }}>
+Next.js build worker exited with code: 1 and signal: null

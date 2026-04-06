@@ -159,25 +159,25 @@ export default function SubmitWorkPage() {
                         <Briefcase size={20} className="text-sky-400" /> What type of work did you complete?
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {WORK_TYPES.map(type => {
-                            const Icon = type.icon
-                            const isSelected = selectedWork === type.value
+                        {WORK_TYPES.map(work => {
+                            const Icon = work.icon
+                            const isSelected = selectedWork === work.value
                             return (
-                                <button key={type.value} onClick={() => setSelectedWork(type.value)}
+                                <button key={work.value} onClick={() => setSelectedWork(work.value)}
                                     className={`glass-card p-5 text-left transition-all duration-300 group relative overflow-hidden ${isSelected ? 'ring-2' : 'hover:border-sky-500/30'}`}
-                                    style={isSelected ? { ringColor: type.color, borderColor: type.color + '60', background: type.color + '10' } : {}}>
+                                    style={isSelected ? { boxShadow: `0 0 0 2px ${work.color}`, borderColor: work.color + '60', background: work.color + '10' } : {}}>
                                     {isSelected && (
                                         <div className="absolute top-3 right-3 w-5 h-5 rounded-full flex items-center justify-center"
-                                            style={{ background: type.color }}>
+                                            style={{ background: work.color }}>
                                             <CheckCircle size={12} className="text-white" />
                                         </div>
                                     )}
                                     <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 duration-300"
-                                        style={{ background: type.color + '20' }}>
-                                        <Icon size={22} style={{ color: type.color }} />
+                                        style={{ background: work.color + '20' }}>
+                                        <Icon size={22} style={{ color: work.color }} />
                                     </div>
-                                    <div className="font-bold text-white text-sm mb-1">{type.label}</div>
-                                    <div className="text-xs text-slate-500">{type.desc}</div>
+                                    <div className="font-bold text-white text-sm mb-1">{work.label}</div>
+                                    <div className="text-xs text-slate-500">{work.desc}</div>
                                 </button>
                             )
                         })}
