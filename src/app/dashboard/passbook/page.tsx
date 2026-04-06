@@ -76,12 +76,13 @@ export default async function PassbookPage() {
                                             {c.type === 'REFERRAL' ? 'Referral Income' 
                                             : c.type === 'TASK' ? 'Task Income' 
                                             : c.type === 'BONUS' ? 'System Bonus'
-                                            : c.type.toLowerCase().replace('_', ' ')}
+                                            : c.type.toLowerCase().split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                                             
                                             <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border uppercase tracking-wider ${
                                                 c.type === 'REFERRAL' ? 'bg-sky-500/10 text-sky-400 border-sky-500/20' : 
                                                 c.type === 'TASK' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
                                                 c.type === 'BONUS' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
+                                                c.type.includes('EDITING') || c.type.includes('DESIGN') ? 'bg-purple-500/10 text-purple-400 border-purple-500/20' :
                                                 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20'
                                             }`}>
                                                 {c.type.replace('_', ' ')}

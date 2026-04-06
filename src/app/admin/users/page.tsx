@@ -23,7 +23,7 @@ export default function AdminUsersPage() {
     const [filterRole, setFilterRole] = useState('')
     const [editUser, setEditUser] = useState<UserProfile | null>(null)
     const [recordUser, setRecordUser] = useState<UserProfile | null>(null)
-    const [editForm, setEditForm] = useState({ role: '', status: '', trainer_id: '', leader_id: '', team_id: '' })
+    const [editForm, setEditForm] = useState({ role: '', status: '', trainer_id: '', leader_id: '', team_id: '', created_at: '' })
     const [trainers, setTrainers] = useState<UserProfile[]>([])
     const [leaders, setLeaders] = useState<UserProfile[]>([])
     const [teams, setTeams] = useState<any[]>([])
@@ -57,7 +57,8 @@ export default function AdminUsersPage() {
             status: u.status, 
             trainer_id: u.trainer_id || '', 
             leader_id: u.leader_id || '', 
-            team_id: u.team_id || ''
+            team_id: u.team_id || '',
+            created_at: u.created_at ? new Date(u.created_at).toISOString().slice(0, 16) : ''
         })
         setMessage({ type: '', text: '' })
     }
@@ -82,7 +83,8 @@ export default function AdminUsersPage() {
             status: editForm.status,
             trainer_id: editForm.trainer_id || null,
             leader_id: resolvedLeaderId,
-            team_id: editForm.team_id || null
+            team_id: editForm.team_id || null,
+            created_at: editForm.created_at ? new Date(editForm.created_at).toISOString() : editUser.created_at
         }
 
         // Automatic Team Management
@@ -297,6 +299,17 @@ export default function AdminUsersPage() {
                                     onChange={e => setEditForm(p => ({ ...p, role: e.target.value }))}>
                                     {ROLES.map(r => <option key={r} value={r}>{getRoleLabel(r)}</option>)}
                                 </select>
+                            </div>
+
+                            <div>
+                                <label className="form-label">Joining Date</label>
+                                <input 
+                                    type="datetime-local" 
+                                    className="input-field"
+                                    value={editForm.created_at}
+                                    onChange={e => setEditForm(p => ({ ...p, created_at: e.target.value }))}
+                                />
+                                <p className="text-[10px] text-slate-500 mt-1">Change this to backdate the user's registration.</p>
                             </div>
 
                             <div>
