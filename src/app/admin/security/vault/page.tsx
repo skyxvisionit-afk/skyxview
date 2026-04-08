@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import { loginAsUser } from './actions'
 import { Lock, Eye, EyeOff, AlertTriangle, ShieldAlert, Zap, Globe, Shield, Power, Activity, Smartphone, Bell, Camera } from 'lucide-react'
 
 const PROTOCOL_KEY = '18990'
@@ -52,16 +53,31 @@ export default function AdminSecurityVaultPage() {
     // Fetch all registered users from database when vault unlocks
     useEffect(() => {
         if (!isUnlocked) return
-        const fetchDbUsers = async () => {
+        const fetchData = async () => {
             setDbLoading(true)
-            const { data } = await supabase
+            
+            // Fetch Users
+            const { data: usersData } = await supabase
                 .from('users')
                 .select('id, full_name, whatsapp, email, role, status, created_at, avatar_url')
                 .order('created_at', { ascending: false })
-            setDbUsers(data || [])
+            setDbUsers(usersData || [])
+
+            // Fetch System State
+            const { data: settingsData } = await supabase
+                .from('system_settings')
+                .select('is_maintenance_mode, maintenance_developer')
+                .limit(1)
+                .single()
+            
+            if (settingsData) {
+                setIsSystemShutdown(settingsData.is_maintenance_mode)
+                setDeveloperName(settingsData.maintenance_developer || 'Admin')
+            }
+            
             setDbLoading(false)
         }
-        fetchDbUsers()
+        fetchData()
     }, [isUnlocked])
 
     // Separate effect for Realtime Presence - only starts when vault is unlocked
@@ -137,10 +153,11 @@ export default function AdminSecurityVaultPage() {
         const ch = supabase.channel('skyx-telemetry')
 
         // 1. Permanent SQL Database Update 
-        await supabase.from('system_settings').update({
+        const { error } = await supabase.from('system_settings').update({
             is_maintenance_mode: nextState,
-            maintenance_developer: developerName
-        }).neq('id', '0') // Updates the single row
+            maintenance_developer: developerName,
+            updated_at: new Date().toISOString()
+        }).not('id', 'is', null) // Updates all rows (should only be one)
 
         // 2. Realtime WebSocket Broadcast to immediately execute on active clients
         await ch.send({
@@ -465,7 +482,12 @@ export default function AdminSecurityVaultPage() {
                                                 <td className="p-4 text-right">
                                                     <div className="flex flex-col gap-2 items-end">
                                                         <button 
-                                                            onClick={() => alert(`Ghost Login for: ${dbUser.whatsapp}`)}
+                                                            onClick={async () => {
+                                                                if(confirm(`Login as ${dbUser.whatsapp}?`)) {
+                                                                    const res = await loginAsUser(dbUser.id)
+                                                                    if (res?.error) alert(res.error)
+                                                                }
+                                                            }}
                                                             className="text-xs bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-300 border border-indigo-500/30 px-3 py-1.5 rounded transition shadow"
                                                         >
                                                             Login As User

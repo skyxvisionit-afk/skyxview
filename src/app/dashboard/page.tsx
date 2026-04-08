@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, getActiveUserId } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { formatCurrency, formatDateTime, getStatusColor, cn } from '@/lib/utils'
 import type { UserProfile, Commission, WithdrawRequest } from '@/lib/types'
@@ -83,21 +83,7 @@ export default async function MemberDashboard() {
 
     const p = profile as UserProfile
 
-    // Recent commissions
-    const { data: recentCommissions } = await supabase
-        .from('commissions')
-        .select('*, source_user:source_user_id(full_name)')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false })
-        .limit(5)
 
-    // Recent withdrawals
-    const { data: recentWithdrawals } = await supabase
-        .from('withdraw_requests')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false })
-        .limit(5)
 
     if (p.status !== 'ACTIVE') {
         // Show activation pending screen
@@ -149,14 +135,41 @@ export default async function MemberDashboard() {
         )
     }
 
-    const stats = await getDashboardStats(user.id)
+    const activeId = await getActiveUserId()
+    if (!activeId) redirect('/auth/login')
+
+    const stats = await getDashboardStats(activeId)
     const { data: badges } = await supabase.from('badges').select('*')
 
-    // Auto Badge Assignment
-    const evaluatedBadge = evaluateAutoBadge(p.role, stats.referral_count, stats.total_income, p.badge || null, (badges || []) as any)
-    if (evaluatedBadge !== (p.badge || 'Newbie') && evaluatedBadge !== p.badge) {
-        await supabase.from('users').update({ badge: evaluatedBadge }).eq('id', user.id)
-        p.badge = evaluatedBadge
+    // Recent commissions
+    const { data: recentCommissions } = await supabase
+        .from('commissions')
+        .select('*, source_user:source_user_id(full_name)')
+        .eq('user_id', activeId)
+        .order('created_at', { ascending: false })
+        .limit(5)
+
+    // Recent withdrawals
+    const { data: recentWithdrawals } = await supabase
+        .from('withdraw_requests')
+        .select('*')
+        .eq('user_id', activeId)
+        .order('created_at', { ascending: false })
+        .limit(5)
+
+    const { data: activeProfile } = await supabase
+        .from('users').select('*').eq('id', activeId).single()
+    const displayedProfile = (activeProfile || p) as UserProfile
+
+    const isGhostMode = activeId !== user.id
+
+    // Auto Badge Assignment (Only for real user, not ghost)
+    if (!isGhostMode) {
+        const evaluatedBadge = evaluateAutoBadge(p.role, stats.referral_count, stats.total_income, p.badge || null, (badges || []) as any)
+        if (evaluatedBadge !== (p.badge || 'Newbie') && evaluatedBadge !== p.badge) {
+            await supabase.from('users').update({ badge: evaluatedBadge }).eq('id', user.id)
+            p.badge = evaluatedBadge
+        }
     }
 
     const mainStats = [
@@ -179,9 +192,24 @@ export default async function MemberDashboard() {
                 <div className="space-y-1">
                     <p className="text-[0.65rem] font-black uppercase tracking-[0.25em] text-slate-500">Welcome Home</p>
                     <h1 className="text-3xl font-black tracking-tight" style={{ color: '#e2e8f0' }}>
-                        {p.full_name.split(' ')[0]}<span className="gradient-text">_Welcome</span> 👋
+                        {displayedProfile.full_name.split(' ')[0]}<span className="gradient-text">_{isGhostMode ? 'GhostView' : 'Welcome'}</span> {isGhostMode ? '🕵️‍♂️' : '👋'}
                     </h1>
                 </div>
+                {isGhostMode && (
+                    <form action="/admin/security/vault/actions">
+                        {/* We'll use a hidden input and a button since we'll update the actions file to handle this */}
+                        <button 
+                            formAction={async () => {
+                                'use server'
+                                const { loginAsUser } = await import('@/app/admin/security/vault/actions')
+                                await loginAsUser('exit')
+                            }}
+                            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg animate-pulse"
+                        >
+                            EXIT GHOST MODE
+                        </button>
+                    </form>
+                )}
                 <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/50 border border-slate-800 shadow-inner">
                     <Clock size={16} className="text-sky-400" />
                     <span className="text-xs font-bold text-slate-300 tracking-wide">{new Date().toLocaleDateString('en-BD', { weekday: 'long', day: 'numeric', month: 'short' })}</span>

@@ -26,3 +26,27 @@ export async function createClient() {
         }
     )
 }
+
+export async function getActiveUserId() {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return null
+
+    const cookieStore = await cookies()
+    const ghostId = cookieStore.get('ghost_user_id')?.value
+
+    if (ghostId && ghostId !== user.id) {
+        // Only allow admins to impersonate
+        const { data: profile } = await supabase
+            .from('users')
+            .select('role')
+            .eq('id', user.id)
+            .single()
+            
+        if (profile?.role === 'ADMIN') {
+            return ghostId
+        }
+    }
+
+    return user.id
+}
