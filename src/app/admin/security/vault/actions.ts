@@ -4,14 +4,20 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 
+/**
+ * Server Action for "Login As User" (Ghost Mode)
+ * Note: Must return void or Promise<void> for form action compatibility.
+ */
 export async function loginAsUser(targetUserId: string) {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     
-    if (!user) return { error: 'Not authenticated. Please login again.' }
+    if (!user) {
+        // Redirection should be top-level or handled by Next.js
+        redirect('/auth/login')
+    }
     
     // Security check: Only admins can ghost login
-    // Use Admin Client to avoid RLS restrictions during validation
     const adminSupabase = await createAdminClient()
     const { data: profile } = await adminSupabase
         .from('users')
@@ -20,7 +26,7 @@ export async function loginAsUser(targetUserId: string) {
         .single()
         
     if (profile?.role !== 'ADMIN') {
-        return { error: 'Unauthorized. Only admins can use Ghost Login.' }
+        redirect('/dashboard?error=unauthorized')
     }
 
     const cookieStore = await cookies()
@@ -36,7 +42,9 @@ export async function loginAsUser(targetUserId: string) {
             .eq('id', targetUserId)
             .single()
             
-        if (!targetUser) return { error: 'Target user not found.' }
+        if (!targetUser) {
+            redirect('/admin/security/vault?error=user_not_found')
+        }
 
         cookieStore.set('ghost_user_id', targetUserId, {
             path: '/',
@@ -46,7 +54,6 @@ export async function loginAsUser(targetUserId: string) {
             sameSite: 'lax'
         })
         
-        // Use redirect directly. Next.js handles this by throwing a special error.
         redirect('/dashboard')
     }
 }
