@@ -90,6 +90,8 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="ubzCDmesNy99qpiF9y1zNkahkgX2nmHPM0KPfszUXcU" />
       </head>
       <body suppressHydrationWarning>
         <TelemetryProvider />

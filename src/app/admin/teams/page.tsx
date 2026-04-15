@@ -211,6 +211,22 @@ export default function AdminTeamsPage() {
         }
     }
 
+    const handleDeleteTeam = async (teamId: string) => {
+        if (!confirm('Are you sure you want to delete this team? This will unassign all members, leaders, and trainers from this team.')) return
+
+        setLoading(true)
+        const { error } = await supabase.from('teams').delete().eq('id', teamId)
+        
+        if (error) {
+            console.error('Delete error:', error)
+            showMsg('error', error.message || 'Error deleting team')
+            setLoading(false)
+        } else {
+            showMsg('success', 'Team deleted successfully!')
+            loadData()
+        }
+    }
+
     const unassignedAndActiveMembers = users.filter(u => u.role === 'MEMBER' && u.status === 'ACTIVE')
     const filteredMembersForModal = unassignedAndActiveMembers.filter(u => 
         u.full_name?.toLowerCase().includes(memberSearch.toLowerCase()) || 
@@ -417,8 +433,14 @@ export default function AdminTeamsPage() {
                                                 setSelectedLeader(team.leader_id || '')
                                                 setSelectedTrainers(team.trainers.map((t: any) => t.id))
                                             }}
-                                            className="flex-1 sm:flex-none sm:w-auto px-4 py-2.5 bg-amber-500/10 text-amber-500 hover:bg-amber-500/20 hover:text-amber-400 rounded-lg text-sm font-bold flex justify-center items-center gap-2 transition-all border border-amber-500/20">
+                                            className="px-4 py-2.5 bg-amber-500/10 text-amber-500 hover:bg-amber-500/20 hover:text-amber-400 rounded-lg text-sm font-bold flex justify-center items-center gap-2 transition-all border border-amber-500/20">
                                             <Edit size={16} /> Edit
+                                        </button>
+                                        <button 
+                                            onClick={() => handleDeleteTeam(team.id)}
+                                            className="px-4 py-2.5 bg-red-500/10 text-red-500 hover:bg-red-500/20 hover:text-red-400 rounded-lg text-sm font-bold flex justify-center items-center gap-2 transition-all border border-red-500/20"
+                                            title="Delete Team">
+                                            <Trash2 size={16} />
                                         </button>
                                     </div>
                                 </div>
